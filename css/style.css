@@ -34,6 +34,13 @@ nav {
     display: flex;
     justify-content: center;
 }
+nav .selected{
+    background-color: #072463;
+    border-radius: 20px;
+}
+nav .selected p{
+    color: #FDDBAE !important;
+}
 nav ul{
     list-style: none;
     background-color: #ffffff;
@@ -62,8 +69,7 @@ li a img{
     height: 70%;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 5%;
-    color: #995700;
+    margin-left: 10%;
 }
 li a p{
     font-size: 1.2em;

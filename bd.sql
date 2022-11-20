@@ -241,6 +241,5 @@ INSERT INTO InvitéGroupeMusique VALUES(2, 1, 'Spectaculaire !');
 INSERT INTO Relation VALUES(1, 1, 'Suite', 1, 1);
 INSERT INTO Comporte VALUES(1, 1, 1 , 'Nombre de notes', 100);
 INSERT INTO Inclut VALUES(1, 1, 1, 1);
-INSERT INTO Repris VALUES(1, 1, 1, 1);
 INSERT INTO Caractérise VALUES(1, 1, 1);
 INSERT INTO Enregistré VALUES(1, 1);

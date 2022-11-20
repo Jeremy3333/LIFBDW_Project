@@ -68,6 +68,10 @@ nav ul li{
     height: 15%;
     border-radius: 20px;
 }
+nav ul li :hover{
+    background-color: #072463;
+    border-radius: 20px;
+}
 li a{
     width: 100%;
     height: 100%;
@@ -143,4 +147,56 @@ footer p{
     margin-top: 1%;
     margin-bottom: auto;
     margin-right: 10%;
+}
+.Add{
+    height: 100%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.Add form{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    margin-left: auto;
+    margin-right: auto;
+}
+.Add form label{
+    font-size: 1.5em;
+    color: #072463;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.Add form input{
+    height: 5%;
+    width: 100%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    border: none;
+    padding-left: 5%;
+    font-size: 1.2em;
+    border: #515151 solid 1px;
+}
+.Add form input[type="submit"]{
+    height: 5%;
+    width: 100%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    border: none;
+    background-color: #072463;
+    color: #FDDBAE;
+    font-size: 1.2em;
+}
+.Add form select{
+    height: 5%;
+    width: 100%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    border: none;
+    padding-left: 5%;
+    font-size: 1.2em;
+    border: #515151 solid 1px;
 }

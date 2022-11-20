@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'Bantayog';
+    src: url("../font/Bantayog-Regular.otf") format("opentype"),
+         url("../font/Bantayog-Regular.woff") format("woff"),
+         url("../font/Bantayog-Regular.woff2") format("woff2");
+}
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Bantayog';
 }
 html, body{
     height: 100%;
@@ -24,6 +31,8 @@ header .logo img{
 .main{
     height: 81.6%;
     width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 nav {
     height: 100%;
@@ -100,4 +109,38 @@ footer a{
 footer p{
     font-size: 0.7em;
     color: #995700;
+}
+.Accueil{
+    height: 100%;
+    width: 85%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    background: rgb(153, 87, 0);
+        background: linear-gradient(90deg, rgba(153, 87, 0, 1) 0%, rgba(253, 219, 174, 1) 100%);
+    text-align: center;
+}
+.Accueil h1{
+    font-size: 3em;
+    color: #072463;
+    margin-top: 1%;
+}
+.Accueil .img {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.Accueil img{
+    height: 100%;
+    margin: 3%;
+}
+.Accueil .img p{
+    font-size: 7em;
+    color: #072463;
+    margin-top: 1%;
+    margin-bottom: auto;
+    margin-right: 10%;
 }

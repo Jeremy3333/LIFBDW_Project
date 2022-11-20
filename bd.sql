@@ -25,20 +25,19 @@ DROP TABLE IF EXISTS Chansons;
 DROP TABLE IF EXISTS GroupeMusique;
 
 CREATE TABLE GroupeMusique(
-   idGM BIGINT,
+   idGM BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
    Nom VARCHAR(50),
    DateFormation DATE,
-   DateSéparaton DATE,
-   PRIMARY KEY(idGM)
+   DateSéparaton DATE
 );
 
 CREATE TABLE Chansons(
-   idGM BIGINT,
-   idC BIGINT,
+   idGM BIGINT NOT NULL,
+   idC BIGINT NOT NULL,
    Titre VARCHAR(50),
    DateCréation DATE,
-   PRIMARY KEY(idGM, idC),
-   FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM)
+   PRIMARY KEY (idGM, idC),
+   FOREIGN KEY (idGM) REFERENCES GroupeMusique(idGM)
 );
 
 CREATE TABLE Musiciens(

@@ -14,6 +14,18 @@
         <?php include('static/header.php'); ?>
         <div class="main">
             <?php include('static/nav.php'); ?>
+            <?php
+                $controleur = 'controleurAccueil';
+                $vue = 'vueAccueil';
+                if (isset($_GET['action'])) {
+                    if (isset($routes[$_GET['action']])) {
+                        $controleur = $routes[$_GET['action']]['controleur'];
+                        $vue = $routes[$_GET['action']]['vue'];
+                    }
+                }
+                include('controleurs/'.$controleur.'.php');
+                include('vues/'.$vue.'.php');
+            ?>
         </div>
         <?php include('static/footer.php'); ?>
     </body>

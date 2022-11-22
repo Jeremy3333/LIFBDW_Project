@@ -52,7 +52,7 @@ function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre
         $row = $result->fetch_assoc();
         $idC = $row['MAX(idC)'] + 1;
         // add the song in the Chansons table
-        $sql = "INSERT INTO Chansons VALUES ('$idGM', '$idC', '$titre', '$date')";
+        $sql = "INSERT INTO Chansons VALUES ('$idC', '$groupe', '$titre', '$date')";
         mysqli_query($bdd, $sql);
     }
     // check what's the last id of the VersionsMusique table
@@ -60,34 +60,19 @@ function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre
     $result = $bdd->query($sql);
     $row = $result->fetch_assoc();
     $idV = $row['MAX(idV)'] + 1;
-    $req_mus = "INSERT INTO VersionsMusique VALUES('$idGM', '$idC', '$idV', '$titre', '$durée', '$nomFichier')";
+    $req_mus = "INSERT INTO VersionsMusique VALUES('$idC', '$idV', '$titre', '$durée', '$nomFichier')";
     mysqli_query($bdd, $req_mus);
     // if the idGM isn't equal to groupe , it means that the versions is a reprise, so we add it
     if($idGM != $groupe)
     {
-        $req_mus = "INSERT INTO Repris VALUES('$groupe', '$idGM', '$idC', '$idV')";
+        $req_mus = "INSERT INTO Repris VALUES('$groupe', '$idC', '$idV')";
         mysqli_query($bdd, $req_mus);
-        //check error and print it
-        if (mysqli_errno($bdd)) {
-            $error = mysqli_error($bdd);
-            echo $error;
-        }
     }
     $sql = "SELECT idG FROM Caractérise WHERE '$idC' = idC AND '$genre' = idG";
     $result = $bdd->query($sql);
-    // check error and print it
-    if (mysqli_errno($bdd)) {
-        $error = mysqli_error($bdd);
-        echo $error;
-    }
     if ($result->num_rows == 0) {
         $req_mus = "INSERT INTO Caractérise VALUES('$idC', '$genre')";
         mysqli_query($bdd, $req_mus);
-        //check error and print it
-        if (mysqli_errno($bdd)) {
-            $error = mysqli_error($bdd);
-            echo $error;
-        }
     }
     //close connection
     mysqli_close($bdd);
@@ -151,7 +136,7 @@ function postVersionsMusique($titre, $durée, $nomFichier, $groupe)
         $result = $bdd->query($sql);
         $row = $result->fetch_assoc();
         $idV = $row['MAX(idV)'] + 1;
-        $req_mus = "INSERT INTO VersionsMusique VALUES('$idGM', '$idC', '$idV', '$titre', '$durée', '$nomFichier')";
+        $req_mus = "INSERT INTO VersionsMusique VALUES('$idC', '$idV', '$titre', '$durée', '$nomFichier')";
         mysqli_query($bdd, $req_mus);
     }
     // if the idGM isn't equal to groupe , it means that the versions is a reprise, so we add it
@@ -256,11 +241,6 @@ function getRowData()
     $bdd -> select_db($database);
     $req = "SELECT * FROM " . $table;
     $result = mysqli_query($bdd, $req);
-    //check if error and print it
-    if (mysqli_errno($bdd)) {
-        $error = mysqli_error($bdd);
-        echo $error;
-    }
     $rowData = mysqli_fetch_all($result, MYSQLI_ASSOC);
     mysqli_close($bdd);
     return $rowData;
@@ -272,11 +252,6 @@ function getGenres()
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Genres";
     $result = mysqli_query($bdd, $req_groupe);
-    //check if query successful
-    if(!$result)
-    {
-        printf("Error: %s\n", mysqli_error($bdd));
-    }
     $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
     //close connection
     mysqli_close($bdd);

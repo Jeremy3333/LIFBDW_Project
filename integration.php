@@ -11,6 +11,8 @@ foreach($datas as $data)
         $genres = explode("; ", $genres);
     } elseif (strpos($genres, " / ") !== false) {
         $genres = explode(" / ", $genres);
+    } elseif (strpos($genres, " And ") !== false) {
+        $genres = explode(" And ", $genres);
     } else {
         $genres = array($genres);
     }

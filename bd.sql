@@ -30,8 +30,8 @@ CREATE TABLE GroupeMusique(
 );
 
 CREATE TABLE Chansons(
-   idGM BIGINT NOT NULL,
    idC BIGINT NOT NULL,
+   idGM BIGINT NOT NULL,
    Titre VARCHAR(50),
    DateCréation DATE,
    PRIMARY KEY (idC),
@@ -39,7 +39,7 @@ CREATE TABLE Chansons(
 );
 
 CREATE TABLE Musiciens(
-   idM BIGINT,
+   idM BIGINT NOT NULL,
    Nom VARCHAR(50),
    Prénom VARCHAR(50),
    NomScène VARCHAR(50),
@@ -47,14 +47,13 @@ CREATE TABLE Musiciens(
 );
 
 CREATE TABLE VersionsMusique(
-   idGM BIGINT,
    idC BIGINT,
    idV BIGINT,
    Forme VARCHAR(50),
    Durée TIME,
    Nom VARCHAR(255),
-   PRIMARY KEY(idGM, idC, idV),
-   FOREIGN KEY(idGM, idC) REFERENCES Chansons(idGM, idC)
+   PRIMARY KEY(idC, idV),
+   FOREIGN KEY(idC) REFERENCES Chansons(idC)
 );
 
 CREATE TABLE Listes_de_lecture(
@@ -120,32 +119,30 @@ CREATE TABLE Compose(
 );
 
 CREATE TABLE Inclut(
-   idGM BIGINT,
    idC BIGINT,
    idV BIGINT,
    idLL BIGINT,
-   PRIMARY KEY(idGM, idC, idV, idLL),
-   FOREIGN KEY(idGM, idC, idV) REFERENCES VersionsMusique(idGM, idC, idV),
+   PRIMARY KEY(idC, idV, idLL),
+   FOREIGN KEY(idC, idV) REFERENCES VersionsMusique(idC, idV),
    FOREIGN KEY(idLL) REFERENCES Listes_de_lecture(idLL)
 );
 
 CREATE TABLE Repris(
    idGM BIGINT,
-   idGM_1 BIGINT,
    idC BIGINT,
    idV BIGINT,
-   PRIMARY KEY(idGM, idGM_1, idC, idV),
+   PRIMARY KEY(idGM, idC, idV),
    FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM)
+   FOREIGN KEY(idC, idV) REFERENCES VersionsMusique(idC, idV)
 );
 
 CREATE TABLE Possède(
-   idGM BIGINT,
    idC BIGINT,
    idV BIGINT,
    idA BIGINT,
    NuméroPiste BIGINT,
-   PRIMARY KEY(idGM, idC, idV, idA),
-   FOREIGN KEY(idGM, idC, idV) REFERENCES VersionsMusique(idGM, idC, idV),
+   PRIMARY KEY(idC, idV, idA),
+   FOREIGN KEY(idC, idV) REFERENCES VersionsMusique(idC, idV),
    FOREIGN KEY(idA) REFERENCES Albums(idA)
 );
 
@@ -176,24 +173,21 @@ CREATE TABLE Caractérise(
 );
 
 CREATE TABLE Relation(
-   idGM BIGINT,
    idC BIGINT,
    Type VARCHAR(50),
-   idGM_1 BIGINT NOT NULL,
    idC_1 BIGINT NOT NULL,
-   PRIMARY KEY(idGM, idC),
-   FOREIGN KEY(idGM, idC) REFERENCES Chansons(idGM, idC),
-   FOREIGN KEY(idGM_1, idC_1) REFERENCES Chansons(idGM, idC)
+   PRIMARY KEY(idC),
+   FOREIGN KEY(idC) REFERENCES Chansons(idC),
+   FOREIGN KEY(idC_1) REFERENCES Chansons(idC)
 );
 
 CREATE TABLE Comporte(
-   idGM BIGINT,
    idC BIGINT,
    idV BIGINT,
    Libellé VARCHAR(50),
    Valeur BIGINT NOT NULL,
-   PRIMARY KEY(idGM, idC, idV, Libellé),
-   FOREIGN KEY(idGM, idC, idV) REFERENCES VersionsMusique(idGM, idC, idV)
+   PRIMARY KEY(idC, idV, Libellé),
+   FOREIGN KEY(idC, idV) REFERENCES VersionsMusique(idC, idV)
 );
 
 CREATE TABLE Enregistré(

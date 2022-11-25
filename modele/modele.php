@@ -1,5 +1,5 @@
 <?php
-include('inc/includes.php');
+//include('inc/includes.php');
 function getBdd()
 {
     $servername = "localhost";

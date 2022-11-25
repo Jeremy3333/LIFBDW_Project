@@ -1,5 +1,5 @@
 <?php
-    require('inc/includes.php');
+    //require('inc/includes.php');
     require('inc/routes.php');
     require('modele/modele.php');
 ?>

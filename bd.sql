@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Fonde;
 DROP TABLE IF EXISTS Albums_Studio;
 DROP TABLE IF EXISTS Albums_Compilation;
 DROP TABLE IF EXISTS Compose;
@@ -14,7 +15,6 @@ DROP TABLE IF EXISTS InvitéGroupeMusique;
 DROP TABLE IF EXISTS Genres;
 DROP TABLE IF EXISTS Albums_Lives;
 DROP TABLE IF EXISTS Lieux;
-DROP TABLE IF EXISTS Periodes;
 DROP TABLE IF EXISTS Musiciens;
 DROP TABLE IF EXISTS Listes_de_lecture;
 DROP TABLE IF EXISTS VersionsMusique;
@@ -30,7 +30,7 @@ CREATE TABLE GroupeMusique(
 );
 
 CREATE TABLE Chansons(
-   idC BIGINT NOT NULL,
+   idC BIGINT NOT NULL AUTO_INCREMENT,
    idGM BIGINT NOT NULL,
    Titre VARCHAR(50),
    DateCréation DATE,
@@ -39,7 +39,7 @@ CREATE TABLE Chansons(
 );
 
 CREATE TABLE Musiciens(
-   idM BIGINT NOT NULL,
+   idM BIGINT NOT NULL AUTO_INCREMENT,
    Nom VARCHAR(50),
    Prénom VARCHAR(50),
    NomScène VARCHAR(50),
@@ -48,10 +48,10 @@ CREATE TABLE Musiciens(
 
 CREATE TABLE VersionsMusique(
    idC BIGINT,
-   idV BIGINT,
+   idV BIGINT NOT NULL,
    Forme VARCHAR(50),
    Durée TIME,
-   Nom VARCHAR(255),
+   Fichier VARCHAR(255),
    PRIMARY KEY(idC, idV),
    FOREIGN KEY(idC) REFERENCES Chansons(idC)
 );
@@ -64,8 +64,8 @@ CREATE TABLE Listes_de_lecture(
 );
 
 CREATE TABLE Albums(
-   idA BIGINT,
-   Titre VARCHAR(50),
+   idA BIGINT NOT NULL AUTO_INCREMENT,
+   Titre VARCHAR(128),
    DateSortie DATE,
    Producteur VARCHAR(50),
    PRIMARY KEY(idA)
@@ -99,7 +99,7 @@ CREATE TABLE Albums_Compilation(
 );
 
 CREATE TABLE Genres(
-   idG BIGINT,
+   idG BIGINT NOT NULL AUTO_INCREMENT,
    Genre VARCHAR(50),
    idG_1 BIGINT,
    PRIMARY KEY(idG),
@@ -107,11 +107,10 @@ CREATE TABLE Genres(
 );
 
 CREATE TABLE Compose(
-   idGM BIGINT,
+   idGM BIGINT NOT NULL,
    idM BIGINT,
    DateDébut DATE,
    DateFin DATE,
-   Fondateur VARCHAR(50),
    Metier VARCHAR(50),
    PRIMARY KEY(idGM, idM, DateDébut, DateFin),
    FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM),
@@ -137,9 +136,9 @@ CREATE TABLE Repris(
 );
 
 CREATE TABLE Possède(
-   idC BIGINT,
-   idV BIGINT,
-   idA BIGINT,
+   idC BIGINT NOT NULL,
+   idV BIGINT NOT NULL,
+   idA BIGINT NOT NULL,
    NuméroPiste BIGINT,
    PRIMARY KEY(idC, idV, idA),
    FOREIGN KEY(idC, idV) REFERENCES VersionsMusique(idC, idV),
@@ -205,6 +204,14 @@ CREATE TABLE InvitéGroupeMusique(
    PRIMARY KEY(idGM, idA),
    FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM),
    FOREIGN KEY(idA) REFERENCES Albums(idA)
+);
+
+CREATE TABLE Fonde(
+   idGM BIGINT,
+   idM BIGINT,
+   PRIMARY KEY(idGM, idM),
+   FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM),
+   FOREIGN KEY(idM) REFERENCES Musiciens(idM)
 );
 
 -- INSERT INTO GroupeMusique VALUES(1, 'Junkerito', '1900-01-01', '2013-06-25');

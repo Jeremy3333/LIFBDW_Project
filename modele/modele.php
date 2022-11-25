@@ -36,8 +36,6 @@ function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre
         while($row = $result->fetch_assoc()) {
             $idC = $row["idC"];
             $idGM = $row["idGM"];
-            $len = strlen($row["Titre"]);
-            $titre = substr($titre, $len);
         }
     } else {
         $idC = 0;
@@ -77,143 +75,193 @@ function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre
     //close connection
     mysqli_close($bdd);
 }
-function postVersionsMusique($titre, $durée, $nomFichier, $groupe)
+function postGroupe($nom)
 {
-    $username = "p2103485";
-    $bdd = getBdd();
-    if(!(isset($titre) && is_string($titre) && isset($durée) && is_string($durée) && isset($nomFichier) && is_string($nomFichier) && isset($groupe) && is_string($groupe)))
+    if(!(isset($nom) && is_string($nom)))
     {
         return false;
     }
-    $titre = $bdd->real_escape_string($titre);
-    $durée = $bdd->real_escape_string($durée);
-    $nomFichier = $bdd->real_escape_string($nomFichier);
-    $groupe = $bdd->real_escape_string($groupe);
-    $bdd -> select_db($username);
-
-    $sql = "SELECT idGM FROM GroupeMusique WHERE Nom = '$groupe'";
-    $result = $bdd->query($sql);
-    //check error and print it
-    if (mysqli_errno($bdd)) {
-        $error = mysqli_error($bdd);
-        echo $error;
-    }
-    $row = $result->fetch_assoc();
-    $groupe = $row['idGM'];
-
-    // check the idC and idGM in Chansons table where the title have the same begining as the title of the song (let only the part that is not in the title of the song)
-    $sql = "SELECT idC, idGM, Titre FROM Chansons WHERE '$titre' LIKE CONCAT(Titre, '%') ";
-    $result = $bdd->query($sql);
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-            $idC = $row["idC"];
-            $idGM = $row["idGM"];
-            $len = strlen($row["Titre"]);
-            $titre = substr($titre, $len);
-        }
-    } else {
-        $idC = 0;
-        $idGM = $groupe;
-    }
-    // if the idC is 0, it means that the song is not in the database, so we add it
-    if($idC == 0)
-    {
-        // check the last idC in the Chansons table
-        $sql = "SELECT MAX(idC) FROM Chansons";
-        $result = $bdd->query($sql);
-        $row = $result->fetch_assoc();
-        $idC = $row['MAX(idC)'] + 1;
-        // add the song in the Chansons table
-        $sql = "INSERT INTO Chansons(idGM, idC, Titre) VALUES ('$idGM', '$idC', '$titre')";
-        mysqli_query($bdd, $sql);
-    }
-    // check what's the last id of the VersionsMusique table
-
-    if($titre != '')
-    {
-        $sql = "SELECT MAX(idV) FROM VersionsMusique";
-        $result = $bdd->query($sql);
-        $row = $result->fetch_assoc();
-        $idV = $row['MAX(idV)'] + 1;
-        $req_mus = "INSERT INTO VersionsMusique VALUES('$idC', '$idV', '$titre', '$durée', '$nomFichier')";
-        mysqli_query($bdd, $req_mus);
-    }
-    // if the idGM isn't equal to groupe , it means that the versions is a reprise, so we add it
-    if($idGM != $groupe)
-    {
-        $req_mus = "INSERT INTO Repris VALUES('$groupe', '$idGM', '$idC', '$idV')";
-        mysqli_query($bdd, $req_mus);
-    }
-    //close connection
-    mysqli_close($bdd);
-}
-function postGroupe($nom)
-{
     $username = "p2103485";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
     $nom = $bdd->real_escape_string($nom);
 
-    $sql = "SELECT * FROM GroupeMusique WHERE Nom = '$nom'";
+    $sql = "SELECT idGM FROM GroupeMusique WHERE Nom = '$nom'";
     $result = $bdd->query($sql);
+    $groupes = mysqli_fetch_all($result, MYSQLI_ASSOC);
     if (mysqli_num_rows($result) > 0) {
-        return false;
+        return $groupes[0]['idGM'];
     }
 
     $sql = "INSERT INTO GroupeMusique(Nom) VALUES ('$nom')";
     mysqli_query($bdd, $sql);
-
+    $idGM = mysqli_insert_id($bdd);
     mysqli_close($bdd);
+    return $idGM;
 }
-function postGenre($genre)
-{
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
-    $genre = $bdd->real_escape_string($genre);
-
-    $sql = "SELECT * FROM Genres WHERE Genre = '$genre'";
-    $result = $bdd->query($sql);
-    if (mysqli_num_rows($result) > 0) {
-        return false;
-    }
-
-    // check the last idG in the Genres table
-    $sql = "SELECT MAX(idG) FROM Genres";
-    $result = $bdd->query($sql);
-    $row = $result->fetch_assoc();
-    $idG = $row['MAX(idG)'] + 1;
-
-    $sql = "INSERT INTO Genres(idG, Genre) VALUES ('$idG', '$genre')";
-    mysqli_query($bdd, $sql);
-
-    mysqli_close($bdd);
-}
-function postCaracterise($titre, $genre)
+function postChansons($titre, $year, $idGM)
 {
     $username = "p2103485";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
     $titre = $bdd->real_escape_string($titre);
-    $genre = $bdd->real_escape_string($genre);
+    $year = $bdd->real_escape_string($year);
+    $idGM = $bdd->real_escape_string($idGM);
 
-    $sql = "SELECT idC FROM Chansons WHERE Titre = '$titre'";
+    $sql = "SELECT idC FROM Chansons WHERE Titre = '$titre' AND idGM = '$idGM'";
+    $result = $bdd->query($sql);
+    $chansons = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (mysqli_num_rows($result) > 0) {
+        return $chansons[0]['idC'];
+    }
+
+    //convert year to date
+    $date = $year . "-01-01";
+
+    if($year == -1)
+    {
+        $sql = "INSERT INTO Chansons(idGM, Titre) VALUES ('$idGM', '$titre')";
+    }
+    else
+    {
+        $sql = "INSERT INTO Chansons(idGM, Titre, DateCréation) VALUES ('$idGM', '$titre', '$date')";
+    }
+
+    mysqli_query($bdd, $sql);
+    $idC = mysqli_insert_id($bdd);
+    mysqli_close($bdd);
+    return $idC;
+}
+function postVersionsMusique($idC, $seconds, $filename)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $idC = $bdd->real_escape_string($idC);
+    $seconds = $bdd->real_escape_string($seconds);
+    $filename = $bdd->real_escape_string($filename);
+
+    $sql = "SELECT idV FROM VersionsMusique WHERE idC = '$idC' AND Fichier = '$filename'";
+    $result = $bdd->query($sql);
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (mysqli_num_rows($result) > 0) {
+        return $versions[0]['idV'];
+    }
+
+    // Check the last idV with that idC
+    $sql = "SELECT MAX(idV) FROM VersionsMusique WHERE idC = '$idC'";
     $result = $bdd->query($sql);
     $row = $result->fetch_assoc();
-    $idC = $row['idC'];
+    $idV = $row['MAX(idV)'] + 1;
+
+    //convert seconds to time
+    $time = gmdate("H:i:s", $seconds);
+
+    $sql = "INSERT INTO VersionsMusique(idC, idV, Durée, Fichier) VALUES ('$idC', '$idV', '$time', '$filename')";
+    mysqli_query($bdd, $sql);
+    $idV = mysqli_insert_id($bdd);
+    mysqli_close($bdd);
+    return $idV;
+}
+function postAlbums($titre, $year)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $titre = $bdd->real_escape_string($titre);
+    $year = $bdd->real_escape_string($year);
+
+    $sql = "SELECT idA FROM Albums WHERE Titre = '$titre'";
+    $result = $bdd->query($sql);
+    $albums = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (mysqli_num_rows($result) > 0) {
+        return $albums[0]['idA'];
+    }
+
+    //convert year to date
+    $date = $year . "-01-01";
+
+    if($year == -1)
+    {
+        $sql = "INSERT INTO Albums(Titre) VALUES ('$titre')";
+    }
+    else
+    {
+        $sql = "INSERT INTO Albums(Titre, DateSortie) VALUES ('$titre', '$date')";
+    }
+
+    mysqli_query($bdd, $sql);
+    $idA = mysqli_insert_id($bdd);
+    mysqli_close($bdd);
+    return $idA;
+}
+function postGenres($genre)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $genre = $bdd->real_escape_string($genre);
 
     $sql = "SELECT idG FROM Genres WHERE Genre = '$genre'";
     $result = $bdd->query($sql);
-    $row = $result->fetch_assoc();
-    $idG = $row['idG'];
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (mysqli_num_rows($result) > 0) {
+        return $genres[0]['idG'];
+    }
 
-    $sql = "INSERT INTO Caractérise VALUES ('$idC', '$idG')";
+    $sql = "INSERT INTO Genres(Genre) VALUES ('$genre')";
     mysqli_query($bdd, $sql);
+    $idG = mysqli_insert_id($bdd);
+    mysqli_close($bdd);
+    return $idG;
+}
+function postPossède($idC, $idV, $idA, $NuméroPiste)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
 
+    $idC = $bdd->real_escape_string($idC);
+    $idV = $bdd->real_escape_string($idV);
+    $idA = $bdd->real_escape_string($idA);
+    $NuméroPiste = $bdd->real_escape_string($NuméroPiste);
+
+    $sql = "SELECT idC, idV, idA FROM Possède WHERE idC = '$idC' AND idV = '$idV' AND idA = '$idA'";
+    $result = $bdd->query($sql);
+    $possède = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (mysqli_num_rows($result) > 0) {
+        return;
+    }
+
+    $sql = "INSERT INTO Possède(idC, idV, idA, NuméroPiste) VALUES ('$idC', '$idV', '$idA', '$NuméroPiste')";
+    mysqli_query($bdd, $sql);
+    $idC = mysqli_insert_id($bdd);
+    mysqli_close($bdd);
+}
+function postCaracterise($idC, $idG)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $idC = $bdd->real_escape_string($idC);
+    $idG = $bdd->real_escape_string($idG);
+
+    $sql = "SELECT idC, idG FROM Caractérise WHERE idC = '$idC' AND idG = '$idG'";
+    $result = $bdd->query($sql);
+    $caractérise = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (mysqli_num_rows($result) > 0) {
+        return;
+    }
+
+    $sql = "INSERT INTO Caractérise(idC, idG) VALUES ('$idC', '$idG')";
+    mysqli_query($bdd, $sql);
+    $idC = mysqli_insert_id($bdd);
     mysqli_close($bdd);
 }
 function getGroupes()
@@ -223,11 +271,6 @@ function getGroupes()
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM GroupeMusique";
     $result = mysqli_query($bdd, $req_groupe);
-    //check if query successful
-    if(!$result)
-    {
-        printf("Error: %s\n", mysqli_error($bdd));
-    }
     $groupes = mysqli_fetch_all($result, MYSQLI_ASSOC);
     //close connection
     mysqli_close($bdd);

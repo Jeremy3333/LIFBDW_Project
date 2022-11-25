@@ -4,7 +4,10 @@ include('modele/modele.php');
 $datas = getRowData();
 foreach($datas as $data)
 {
-    postGroupe($data['artist']);
+    $idGM = postGroupe($data['artist']);
+    $idC = postChansons($data['title'], $data['year'], $idGM);
+    $idV = postVersionsMusique($idC, $data['length'], $data['filename']);
+    $idA = postAlbums($data['album'], $data['year']);
     $genres =  $data['genre'];
     // if genre have "; " or " / " then explode it
     if (strpos($genres, "; ") !== false) {
@@ -18,9 +21,10 @@ foreach($datas as $data)
     }
     foreach($genres as $genre)
     {
-        postGenre($genre);
-        postCaracterise($data['title'], $genre);
+        $idG = postGenres($genre);
+        postCaracterise($idC, $idG);
     }
-    postVersionsMusique($data['title'], gmdate("H:i:s", $data['length']), $data['filename'], $data['artist']);
+    postPossède($idC, $idV, $idA, $data['track']);
+    // postVersionsMusique($data['title'], gmdate("H:i:s", $data['length']), $data['filename'], $data['artist']);
 }
 ?>

@@ -8,5 +8,13 @@ $routes = array(
                 'controleur' => 'controleurAdd',
                 'vue' => 'vueAdd',
         ),
+        'Playlist' => array(
+                'controleur' => 'controleurPlaylist',
+                'vue' => 'vuePlaylist',
+        ),
+        'playlistRandom' => array(
+                'controleur' => 'controleurPlaylistRandom',
+                'vue' => 'vuePlaylistRandom',
+        )
     )
 ?>

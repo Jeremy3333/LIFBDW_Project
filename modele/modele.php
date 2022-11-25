@@ -3,8 +3,8 @@
 function getBdd()
 {
     $servername = "localhost";
-    $username = "p2103485";
-    $password = "Salon17Spree";
+    $username = "p2102785";
+    $password = "Supper10Jurist";
     $conn = new mysqli($servername, $username, $password);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -13,7 +13,7 @@ function getBdd()
 }
 function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     if(!(isset($titre) && is_string($titre) && isset($date) && is_string($date) && isset($durée) && is_string($durée) && isset($nomFichier) && is_string($nomFichier) && isset($groupe) && is_integer($groupe) && isset($genre) && is_integer($genre)))
     {
@@ -79,7 +79,7 @@ function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre
 }
 function postVersionsMusique($titre, $durée, $nomFichier, $groupe)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     if(!(isset($titre) && is_string($titre) && isset($durée) && is_string($durée) && isset($nomFichier) && is_string($nomFichier) && isset($groupe) && is_string($groupe)))
     {
@@ -150,7 +150,7 @@ function postVersionsMusique($titre, $durée, $nomFichier, $groupe)
 }
 function postGroupe($nom)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -169,7 +169,7 @@ function postGroupe($nom)
 }
 function postGenre($genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -194,7 +194,7 @@ function postGenre($genre)
 }
 function postCaracterise($titre, $genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -218,7 +218,7 @@ function postCaracterise($titre, $genre)
 }
 function getGroupes()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM GroupeMusique";
@@ -247,7 +247,7 @@ function getRowData()
 }
 function getGenres()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Genres";

@@ -1,4 +1,4 @@
-<div class="Add">
+<div class="Form">
     <form method="post" action="index.php?action=Add">
         <label for="titre">Titre</label>
         <input type="text" name="titre" id="titre" placeholder="Titre" require/>

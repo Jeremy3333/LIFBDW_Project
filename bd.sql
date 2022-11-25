@@ -57,7 +57,7 @@ CREATE TABLE VersionsMusique(
 );
 
 CREATE TABLE Listes_de_lecture(
-   idLL BIGINT,
+   idLL BIGINT NOT NULL AUTO_INCREMENT,
    Titre VARCHAR(50),
    DateCréation DATE,
    PRIMARY KEY(idLL)
@@ -207,29 +207,29 @@ CREATE TABLE InvitéGroupeMusique(
    FOREIGN KEY(idA) REFERENCES Albums(idA)
 );
 
--- INSERT INTO GroupeMusique VALUES(1, 'Junkerito', '1900-01-01', '2013-06-25');
--- INSERT INTO GroupeMusique VALUES(2, 'Prrrrt', '1925-12-30', '2013-06-25');
--- INSERT INTO Musiciens VALUES(1, 'Grënbe', 'Julio', 'Ninjart');
--- INSERT INTO Musiciens VALUES(2, 'Varex', 'Erwan', 'Ninjart');
--- INSERT INTO Chansons VALUES(1, 1, 'Hector Dupuisse', '1925-12-30');
--- INSERT INTO Genres VALUES(1, "Junkeroulade", NULL);
--- INSERT INTO Genres VALUES(2, "full", 1);
--- INSERT INTO VersionsMusique VALUES(1, 1, 'version original', '03:20:00.000000', 'hector_dupuisse_original.mp3');
--- INSERT INTO Listes_de_lecture VALUES(1, 'Les 10 titres triple diamant de Jukerito', '2013-06-25');
--- INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
--- INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');
--- INSERT INTO Albums VALUES(3, 'Ptdr t ki', '1989-08-14', 'Robespierre');
--- INSERT INTO Albums_Studio VALUES(1, 'Pablo Pablo-Pablo');
--- INSERT INTO Albums_Compilation VALUES (2, "Il s'agit de toutes les featuring de Junkerito");
--- INSERT INTO Albums_Lives VALUES(3);
--- INSERT INTO Lieux VALUES(1, 'Phobos', 'Mars');
--- INSERT INTO Situé VALUES(1, '1978-02-26', 3);
--- INSERT INTO Compose VALUES(1, 1, '1927-07-14', '2013-06-26', TRUE, 'Bassiste');
--- INSERT INTO Possède VALUES(1, 1, 1, 1);
--- INSERT INTO InvitéMusiciens VALUES(2, 1, 'Groupe très gentil');
--- INSERT INTO InvitéGroupeMusique VALUES(2, 1, 'Spectaculaire !');
--- INSERT INTO Relation VALUES(1, 'Suite', 1);
--- INSERT INTO Comporte VALUES(1, 1 , 'Nombre de notes', 100);
--- INSERT INTO Inclut VALUES(1, 1, 1);
--- INSERT INTO Caractérise VALUES(1, 1);
--- INSERT INTO Enregistré VALUES(1, 1);
+INSERT INTO GroupeMusique VALUES(1, 'Junkerito', '1900-01-01', '2013-06-25');
+INSERT INTO GroupeMusique VALUES(2, 'Prrrrt', '1925-12-30', '2013-06-25');
+INSERT INTO Musiciens VALUES(1, 'Grënbe', 'Julio', 'Ninjart');
+INSERT INTO Musiciens VALUES(2, 'Varex', 'Erwan', 'Ninjart');
+INSERT INTO Chansons VALUES(1, 1, 'Hector Dupuisse', '1925-12-30');
+INSERT INTO Genres VALUES(1, "Junkeroulade", NULL);
+INSERT INTO Genres VALUES(2, "full", 1);
+INSERT INTO VersionsMusique VALUES(1, 1, 'version original', '03:20:00.000000', 'hector_dupuisse_original.mp3');
+INSERT INTO Listes_de_lecture VALUES(1, 'Les 10 titres triple diamant de Jukerito', '2013-06-25');
+INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
+INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');
+INSERT INTO Albums VALUES(3, 'Ptdr t ki', '1989-08-14', 'Robespierre');
+INSERT INTO Albums_Studio VALUES(1, 'Pablo Pablo-Pablo');
+INSERT INTO Albums_Compilation VALUES (2, "Il s'agit de toutes les featuring de Junkerito");
+INSERT INTO Albums_Lives VALUES(3);
+INSERT INTO Lieux VALUES(1, 'Phobos', 'Mars');
+INSERT INTO Situé VALUES(1, '1978-02-26', 3);
+INSERT INTO Compose VALUES(1, 1, '1927-07-14', '2013-06-26', TRUE, 'Bassiste');
+INSERT INTO Possède VALUES(1, 1, 1, 1);
+INSERT INTO InvitéMusiciens VALUES(2, 1, 'Groupe très gentil');
+INSERT INTO InvitéGroupeMusique VALUES(2, 1, 'Spectaculaire !');
+INSERT INTO Relation VALUES(1, 'Suite', 1);
+INSERT INTO Comporte VALUES(1, 1 , 'Nombre de notes', 100);
+INSERT INTO Inclut VALUES(1, 1, 1);
+INSERT INTO Caractérise VALUES(1, 1);
+INSERT INTO Enregistré VALUES(1, 1);

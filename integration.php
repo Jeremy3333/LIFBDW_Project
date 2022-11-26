@@ -1,13 +1,17 @@
 <?php
 include('modele/modele.php');
 
-$datas = getRowData();
+$bdd = getBdd();
+$datas = getRowData($bdd);
+$username = "p2103485";
+$bdd -> select_db($username);
+$start_time = microtime(true);
 foreach($datas as $data)
 {
-    $idGM = postGroupe($data['artist']);
-    $idC = postChansons($data['title'], $data['year'], $idGM);
-    $idV = postVersionsMusique($idC, $data['length'], $data['filename']);
-    $idA = postAlbums($data['album'], $data['year']);
+    $idGM = postGroupe($data['artist'], $bdd);
+    $idC = postChansons($data['title'], $data['year'], $idGM, $bdd);
+    $idV = postVersionsMusique($idC, $data['length'], $data['filename'], $bdd);
+    $idA = postAlbums($data['album'], $data['year'], $bdd);
     $genres =  $data['genre'];
     // if genre have "; " or " / " then explode it
     if (strpos($genres, "; ") !== false) {
@@ -21,10 +25,12 @@ foreach($datas as $data)
     }
     foreach($genres as $genre)
     {
-        $idG = postGenres($genre);
-        postCaracterise($idC, $idG);
+        $idG = postGenres($genre, $bdd);
+        postCaracterise($idC, $idG, $bdd);
     }
-    postPossède($idC, $idV, $idA, $data['track']);
-    // postVersionsMusique($data['title'], gmdate("H:i:s", $data['length']), $data['filename'], $data['artist']);
+    postPossède($idC, $idV, $idA, $data['track'], $bdd);
 }
+$end_time = microtime(true);
+// echo "Execution time: " . ($end_time - $start_time) . " seconds<br>";
+mysqli_close($bdd);
 ?>

@@ -75,16 +75,8 @@ function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre
     //close connection
     mysqli_close($bdd);
 }
-function postGroupe($nom)
+function postGroupe($nom, $bdd)
 {
-    if(!(isset($nom) && is_string($nom)))
-    {
-        return false;
-    }
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
     $nom = $bdd->real_escape_string($nom);
 
     $sql = "SELECT idGM FROM GroupeMusique WHERE Nom = '$nom'";
@@ -97,15 +89,10 @@ function postGroupe($nom)
     $sql = "INSERT INTO GroupeMusique(Nom) VALUES ('$nom')";
     mysqli_query($bdd, $sql);
     $idGM = mysqli_insert_id($bdd);
-    mysqli_close($bdd);
     return $idGM;
 }
-function postChansons($titre, $year, $idGM)
+function postChansons($titre, $year, $idGM, $bdd)
 {
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
     $titre = $bdd->real_escape_string($titre);
     $year = $bdd->real_escape_string($year);
     $idGM = $bdd->real_escape_string($idGM);
@@ -131,15 +118,10 @@ function postChansons($titre, $year, $idGM)
 
     mysqli_query($bdd, $sql);
     $idC = mysqli_insert_id($bdd);
-    mysqli_close($bdd);
     return $idC;
 }
-function postVersionsMusique($idC, $seconds, $filename)
+function postVersionsMusique($idC, $seconds, $filename, $bdd)
 {
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
     $idC = $bdd->real_escape_string($idC);
     $seconds = $bdd->real_escape_string($seconds);
     $filename = $bdd->real_escape_string($filename);
@@ -163,15 +145,10 @@ function postVersionsMusique($idC, $seconds, $filename)
     $sql = "INSERT INTO VersionsMusique(idC, idV, Durée, Fichier) VALUES ('$idC', '$idV', '$time', '$filename')";
     mysqli_query($bdd, $sql);
     $idV = mysqli_insert_id($bdd);
-    mysqli_close($bdd);
     return $idV;
 }
-function postAlbums($titre, $year)
+function postAlbums($titre, $year, $bdd)
 {
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
     $titre = $bdd->real_escape_string($titre);
     $year = $bdd->real_escape_string($year);
 
@@ -196,15 +173,10 @@ function postAlbums($titre, $year)
 
     mysqli_query($bdd, $sql);
     $idA = mysqli_insert_id($bdd);
-    mysqli_close($bdd);
     return $idA;
 }
-function postGenres($genre)
+function postGenres($genre, $bdd)
 {
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
     $genre = $bdd->real_escape_string($genre);
 
     $sql = "SELECT idG FROM Genres WHERE Genre = '$genre'";
@@ -217,15 +189,10 @@ function postGenres($genre)
     $sql = "INSERT INTO Genres(Genre) VALUES ('$genre')";
     mysqli_query($bdd, $sql);
     $idG = mysqli_insert_id($bdd);
-    mysqli_close($bdd);
     return $idG;
 }
-function postPossède($idC, $idV, $idA, $NuméroPiste)
+function postPossède($idC, $idV, $idA, $NuméroPiste, $bdd)
 {
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
     $idC = $bdd->real_escape_string($idC);
     $idV = $bdd->real_escape_string($idV);
     $idA = $bdd->real_escape_string($idA);
@@ -241,14 +208,9 @@ function postPossède($idC, $idV, $idA, $NuméroPiste)
     $sql = "INSERT INTO Possède(idC, idV, idA, NuméroPiste) VALUES ('$idC', '$idV', '$idA', '$NuméroPiste')";
     mysqli_query($bdd, $sql);
     $idC = mysqli_insert_id($bdd);
-    mysqli_close($bdd);
 }
-function postCaracterise($idC, $idG)
+function postCaracterise($idC, $idG, $bdd)
 {
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
     $idC = $bdd->real_escape_string($idC);
     $idG = $bdd->real_escape_string($idG);
 
@@ -262,7 +224,6 @@ function postCaracterise($idC, $idG)
     $sql = "INSERT INTO Caractérise(idC, idG) VALUES ('$idC', '$idG')";
     mysqli_query($bdd, $sql);
     $idC = mysqli_insert_id($bdd);
-    mysqli_close($bdd);
 }
 function getGroupes()
 {
@@ -276,16 +237,14 @@ function getGroupes()
     mysqli_close($bdd);
     return $groupes;
 }
-function getRowData()
+function getRowData($bdd)
 {
     $database = "dataset";
-    $table = "songs100";
-    $bdd = getBdd();
+    $table = "songs2000";
     $bdd -> select_db($database);
     $req = "SELECT * FROM " . $table;
     $result = mysqli_query($bdd, $req);
     $rowData = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    mysqli_close($bdd);
     return $rowData;
 }
 function getGenres()

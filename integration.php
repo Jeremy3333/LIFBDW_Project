@@ -5,7 +5,6 @@ $bdd = getBdd();
 $datas = getRowData($bdd);
 $username = "p2103485";
 $bdd -> select_db($username);
-$start_time = microtime(true);
 foreach($datas as $data)
 {
     $idGM = postGroupe($data['artist'], $bdd);
@@ -29,8 +28,11 @@ foreach($datas as $data)
         postCaracterise($idC, $idG, $bdd);
     }
     postPossède($idC, $idV, $idA, $data['track'], $bdd);
+    postComporte($idC, $idV, "Compilation", $data['compilation'], $bdd);
+    postComporte($idC, $idV, "filesize", $data['filesize'], $bdd);
+    postComporte($idC, $idV, "playcount", $data['playcount'], $bdd);
+    postComporte($idC, $idV, "lastplayed", $data['lastplayed'], $bdd);
+    postComporte($idC, $idV, "skipcount", $data['skipcount'], $bdd);
 }
-$end_time = microtime(true);
-// echo "Execution time: " . ($end_time - $start_time) . " seconds<br>";
 mysqli_close($bdd);
 ?>

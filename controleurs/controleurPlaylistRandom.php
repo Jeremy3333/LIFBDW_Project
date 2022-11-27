@@ -1,25 +1,27 @@
 <?php
 
-function makeRandomPlaylist($duree, $genre, $pref)
+function makeRandomPlaylist($titre, $duree, $genre, $pref)
 {
     $addduree = 0;
+    postListesdeLecture($titre);
 
-    while ($duree >= $addduree)
-    {
-        $versions = getVersion($genre);
-        $nbVersion = count($versions);
-        $nb = rand(0,$nbVersion-1);
-        postListesdeLecture($versions[$nb]);
-        $addduree += $versions[$nb]['durée'];
-    }
+    // while ($duree >= $addduree)
+    // {
+    //     $versions = getVersion($genre);
+    //     $nbVersion = count($versions);
+    //     $nb = rand(0,$nbVersion-1);
+        
+    //     // $addduree += $versions[$nb]['durée'];
+    // }
 }
 
 if(isset($_POST['Créer']))
 {
+    $titre = $_POST['titre'];
     $duree = $_POST['duree'];
     $genre = $_POST['genre'];
     $pref = $_POST['preference'];
-    makeRandomPlaylist($duree, $genre, $pref);
+    makeRandomPlaylist($titre, $duree, $genre, $pref);
 }
 
 $Genres = getGenres();

@@ -1,5 +1,7 @@
 <div class="Form">
     <form method="post" action="index.php?action=playlistRandom">
+        <label for="titre">Nom de la playlist</label>
+        <input type="text" name="titre" id="titre" placeholder="Nom de la playlist" require/>
         <label for="duree">Durée</label>
         <input type="time" name="duree" id="duree" placeholder="Durée" require/>
         <label for="genre">Genre</label>

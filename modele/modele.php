@@ -259,7 +259,6 @@ function getGenres()
 }
 function getVersion($genre)
 {
-    echo "<p>".$genre."</p>"."</br>";
     $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
@@ -270,22 +269,25 @@ function getVersion($genre)
     mysqli_close($bdd);
     return $versions;
 }
-function postListesdeLecture($version)
+function postListesdeLecture($titre)
 {
     $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $nom = $bdd->real_escape_string($nom);
+    $titre = $bdd->real_escape_string($titre);
 
-    $sql = "SELECT * FROM GroupeMusique WHERE Nom = '$nom'";
+    $sql = "SELECT * FROM Listes_de_lecture WHERE Titre = '$titre'";
     $result = $bdd->query($sql);
     if (mysqli_num_rows($result) > 0) {
         return false;
     }
 
-    $sql = "INSERT INTO GroupeMusique(Nom) VALUES ('$nom')";
+    $sql = "INSERT INTO Listes_de_lecture(Titre,DateCréation) VALUES ('$titre',CAST(NOW() AS DATE))";
     mysqli_query($bdd, $sql);
+    if (mysqli_error($bdd)) {
+        echo mysqli_error($bdd) . "<br>";
+    }
 
     mysqli_close($bdd);
 }

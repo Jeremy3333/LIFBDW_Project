@@ -15,6 +15,10 @@ html, body{
 a{
     text-decoration: none;
 }
+ul
+{
+    list-style-type: none;
+}
 header {
     background-color: #194AB0;
     height: 9.2%;
@@ -199,4 +203,112 @@ footer p{
     padding-left: 5%;
     font-size: 1.2em;
     border: #515151 solid 1px;
+}
+.Statistique{
+    height: 100%;
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.Stat-left{
+    height: 100%;
+    width: 66%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.Stat-left-top{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.Stat-left-bottom {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.Stat-right {
+    height: 100%;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.box{
+    height: 80%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    border-radius: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    box-shadow: 1px 1px 1px 1px gray;
+}
+.box-wide{
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    border-radius: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    box-shadow: 1px 1px 1px 1px gray;
+}
+.box-high{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    border-radius: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    box-shadow: 1px 1px 1px 1px gray;
+}
+.box-high ul {
+    height: 95.5%;
+    width: 100%;
+}
+.box-high ul li {
+    height: 5%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.box-high ul li p {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 1.2em;
+    color: #072463;
+}
+.box-header{
+    height: 10%;
+    width: 100%;
+    display: flex;
+    background-color: #194AB0;
+    border-radius: 20px 20px 0px 0px;
+}
+.box-header-high{
+    height: 4.5%;
+    width: 100%;
+    display: flex;
+    background-color: #194AB0;
+    border-radius: 20px 20px 0px 0px;
+}
+.box-header-high p{
+    font-size: 1.5em;
+    color: #FDDBAE;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5%;
 }

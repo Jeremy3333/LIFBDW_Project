@@ -273,4 +273,16 @@ function getGenres()
     mysqli_close($bdd);
     return $genres;
 }
+function getTopChansons()
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_groupe = "SELECT ch.Titre, c.Valeur FROM Chansons ch NATURAL JOIN Comporte c WHERE c.Libellé = 'playcount' ORDER BY c.Valeur DESC LIMIT 20";
+    $result = mysqli_query($bdd, $req_groupe);
+    $topChansons = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $topChansons;
+}
 ?>

@@ -222,9 +222,8 @@ function postCaracterise($idC, $idG, $bdd)
     $sql = "INSERT INTO Caractérise(idC, idG) VALUES ('$idC', '$idG')";
     mysqli_query($bdd, $sql);
 }
-function postCompilation($idC, $idV, $Valeur, $bdd)
+function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
 {
-    $Libellé = "Compilation";
     $idC = $bdd->real_escape_string($idC);
     $idV = $bdd->real_escape_string($idV);
     $Valeur = $bdd->real_escape_string($Valeur);
@@ -238,9 +237,9 @@ function postCompilation($idC, $idV, $Valeur, $bdd)
 
     $sql = "INSERT INTO Comporte(idC, idV, Libellé, Valeur) VALUES ('$idC', '$idV', '$Libellé', '$Valeur')";
     mysqli_query($bdd, $sql);
-    //check error and print it
+    // check error and print it
     if (mysqli_error($bdd)) {
-        echo $idC . " " . $idV . " " . mysqli_error($bdd) . "<br>";
+        echo mysqli_error($bdd) . "<br>";
     }
 }
 function getGroupes()

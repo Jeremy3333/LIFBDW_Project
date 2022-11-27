@@ -11,8 +11,6 @@ foreach($datas as $data)
     $idC = postChansons($data['title'], $data['year'], $idGM, $bdd);
     $idV = postVersionsMusique($idC, $data['length'], $data['filename'], $bdd);
     $idA = postAlbums($data['album'], $data['year'], $bdd);
-    postPossède($idC, $idV, $idA, $data['track'], $bdd);
-    postCompilation($idC, $idV, $data['compilation'], $bdd);
     $genres =  $data['genre'];
     // if genre have "; " or " / " then explode it
     if (strpos($genres, "; ") !== false) {
@@ -29,6 +27,12 @@ foreach($datas as $data)
         $idG = postGenres($genre, $bdd);
         postCaracterise($idC, $idG, $bdd);
     }
+    postPossède($idC, $idV, $idA, $data['track'], $bdd);
+    postComporte($idC, $idV, "Compilation", $data['compilation'], $bdd);
+    postComporte($idC, $idV, "filesize", $data['filesize'], $bdd);
+    postComporte($idC, $idV, "playcount", $data['playcount'], $bdd);
+    postComporte($idC, $idV, "lastplayed", $data['lastplayed'], $bdd);
+    postComporte($idC, $idV, "skipcount", $data['skipcount'], $bdd);
 }
 mysqli_close($bdd);
 ?>

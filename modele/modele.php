@@ -285,9 +285,24 @@ function postListesdeLecture($titre)
 
     $sql = "INSERT INTO Listes_de_lecture(Titre,DateCréation) VALUES ('$titre',CAST(NOW() AS DATE))";
     mysqli_query($bdd, $sql);
-    if (mysqli_error($bdd)) {
-        echo mysqli_error($bdd) . "<br>";
-    }
+
+    $idLL = mysqli_insert_id($bdd);
+
+    mysqli_close($bdd);
+
+    return $idLL;
+}
+function postInclut($idLL,$idV)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $sql = "SELECT idC FROM VersionsMusique WHERE idV = '$idV'";
+    $ridC = $bdd->query($sql);
+
+    $sql = "INSERT INTO Inclut VALUES (,'$idC','$idV','$idLL')";
+    mysqli_query($bdd, $sql);
 
     mysqli_close($bdd);
 }

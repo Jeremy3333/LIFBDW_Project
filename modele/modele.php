@@ -144,6 +144,10 @@ function postVersionsMusique($idC, $seconds, $filename, $bdd)
 
     $sql = "INSERT INTO VersionsMusique(idC, idV, Durée, Fichier) VALUES ('$idC', '$idV', '$time', '$filename')";
     mysqli_query($bdd, $sql);
+    // check error and print it
+    if (mysqli_error($bdd)) {
+        echo $idC . " " . $idV . " " . mysqli_error($bdd) . "<br>";
+    }
     return $idV;
 }
 function postAlbums($titre, $year, $bdd)
@@ -239,7 +243,7 @@ function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
     mysqli_query($bdd, $sql);
     // check error and print it
     if (mysqli_error($bdd)) {
-        echo mysqli_error($bdd) . "<br>";
+        echo $idC . " " . $idV . " " . mysqli_error($bdd) . "<br>";
     }
 }
 function getGroupes()
@@ -257,7 +261,7 @@ function getGroupes()
 function getRowData($bdd)
 {
     $database = "dataset";
-    $table = "songs100";
+    $table = "songs2000";
     $bdd -> select_db($database);
     $req = "SELECT * FROM " . $table;
     $result = mysqli_query($bdd, $req);

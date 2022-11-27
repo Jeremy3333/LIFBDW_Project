@@ -144,10 +144,6 @@ function postVersionsMusique($idC, $seconds, $filename, $bdd)
 
     $sql = "INSERT INTO VersionsMusique(idC, idV, Durée, Fichier) VALUES ('$idC', '$idV', '$time', '$filename')";
     mysqli_query($bdd, $sql);
-    // check error and print it
-    if (mysqli_error($bdd)) {
-        echo $idC . " " . $idV . " " . mysqli_error($bdd) . "<br>";
-    }
     return $idV;
 }
 function postAlbums($titre, $year, $bdd)
@@ -210,6 +206,7 @@ function postPossède($idC, $idV, $idA, $NuméroPiste, $bdd)
 
     $sql = "INSERT INTO Possède(idC, idV, idA, NuméroPiste) VALUES ('$idC', '$idV', '$idA', '$NuméroPiste')";
     mysqli_query($bdd, $sql);
+    $idC = mysqli_insert_id($bdd);
 }
 function postCaracterise($idC, $idG, $bdd)
 {
@@ -241,10 +238,6 @@ function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
 
     $sql = "INSERT INTO Comporte(idC, idV, Libellé, Valeur) VALUES ('$idC', '$idV', '$Libellé', '$Valeur')";
     mysqli_query($bdd, $sql);
-    // check error and print it
-    if (mysqli_error($bdd)) {
-        echo $idC . " " . $idV . " " . mysqli_error($bdd) . "<br>";
-    }
 }
 function getGroupes()
 {

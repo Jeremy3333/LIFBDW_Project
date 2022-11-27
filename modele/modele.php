@@ -144,6 +144,7 @@ function postVersionsMusique($idC, $seconds, $filename, $bdd)
 
     $sql = "INSERT INTO VersionsMusique(idC, idV, Durée, Fichier) VALUES ('$idC', '$idV', '$time', '$filename')";
     mysqli_query($bdd, $sql);
+    $idV = mysqli_insert_id($bdd);
     return $idV;
 }
 function postAlbums($titre, $year, $bdd)
@@ -206,6 +207,7 @@ function postPossède($idC, $idV, $idA, $NuméroPiste, $bdd)
 
     $sql = "INSERT INTO Possède(idC, idV, idA, NuméroPiste) VALUES ('$idC', '$idV', '$idA', '$NuméroPiste')";
     mysqli_query($bdd, $sql);
+    $idC = mysqli_insert_id($bdd);
 }
 function postCaracterise($idC, $idG, $bdd)
 {
@@ -221,26 +223,7 @@ function postCaracterise($idC, $idG, $bdd)
 
     $sql = "INSERT INTO Caractérise(idC, idG) VALUES ('$idC', '$idG')";
     mysqli_query($bdd, $sql);
-}
-function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
-{
-    $idC = $bdd->real_escape_string($idC);
-    $idV = $bdd->real_escape_string($idV);
-    $Valeur = $bdd->real_escape_string($Valeur);
-
-    $sql = "SELECT idC, idV, Libellé FROM Comporte WHERE idC = '$idC' AND idV = '$idV' AND Libellé = '$Libellé'";
-    $result = $bdd->query($sql);
-    $comporte = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    if (mysqli_num_rows($result) > 0) {
-        return;
-    }
-
-    $sql = "INSERT INTO Comporte(idC, idV, Libellé, Valeur) VALUES ('$idC', '$idV', '$Libellé', '$Valeur')";
-    mysqli_query($bdd, $sql);
-    // check error and print it
-    if (mysqli_error($bdd)) {
-        echo mysqli_error($bdd) . "<br>";
-    }
+    $idC = mysqli_insert_id($bdd);
 }
 function getGroupes()
 {
@@ -257,7 +240,7 @@ function getGroupes()
 function getRowData($bdd)
 {
     $database = "dataset";
-    $table = "songs100";
+    $table = "songs2000";
     $bdd -> select_db($database);
     $req = "SELECT * FROM " . $table;
     $result = mysqli_query($bdd, $req);

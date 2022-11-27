@@ -19,6 +19,6 @@
             <option value="skipcount">Les plus sautées</option>
             <option value="lastplayed">Les plus récentes</option>
         </select>
-        <input type="submit"name="Créer" value="Créer" />
+        <input type="submit" name="Créer" value="Créer" />
     </form>
 </div>

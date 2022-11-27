@@ -257,4 +257,36 @@ function getGenres()
     mysqli_close($bdd);
     return $genres;
 }
+function getVersion($genre)
+{
+    echo "<p>".$genre."</p>"."</br>";
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_groupe = "SELECT v.* FROM (VersionsMusique v NATURAL JOIN Caractérise t) NATURAL JOIN Genres g WHERE g.idG = '$genre'";
+    $result = mysqli_query($bdd, $req_groupe);
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $versions;
+}
+function postListesdeLecture($version)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $nom = $bdd->real_escape_string($nom);
+
+    $sql = "SELECT * FROM GroupeMusique WHERE Nom = '$nom'";
+    $result = $bdd->query($sql);
+    if (mysqli_num_rows($result) > 0) {
+        return false;
+    }
+
+    $sql = "INSERT INTO GroupeMusique(Nom) VALUES ('$nom')";
+    mysqli_query($bdd, $sql);
+
+    mysqli_close($bdd);
+}
 ?>

@@ -299,9 +299,11 @@ function postInclut($idLL,$idV)
     $bdd -> select_db($username);
 
     $sql = "SELECT idC FROM VersionsMusique WHERE idV = '$idV'";
-    $ridC = $bdd->query($sql);
+    $result = $bdd->query($sql);
+    $row = $result->fetch_assoc();
+    $idC = $row['idC'];
 
-    $sql = "INSERT INTO Inclut VALUES (,'$idC','$idV','$idLL')";
+    $sql = "INSERT INTO Inclut VALUES ('$idC','$idV','$idLL')";
     mysqli_query($bdd, $sql);
 
     mysqli_close($bdd);

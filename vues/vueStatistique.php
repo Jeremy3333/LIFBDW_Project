@@ -2,10 +2,30 @@
     <div class="Stat-left">
         <div class="Stat-left-top">
             <div class="box">
-                <div class="box-header"></div>
+                <div class="box-header">
+                    <p>musiques les plus récentes</p>
+                </div>
+                <ul>
+                    <?php
+                    foreach($ChansonsRecente as $chanson)
+                    {
+                        echo "<li><p>".$chanson['Titre']."</p> <p>".$chanson['DateCréation']."</p></li>";
+                    }
+                    ?>
+                </ul>
             </div>
             <div class="box">
-                <div class="box-header"></div>
+                <div class="box-header">
+                    <p>musiques les plus passée</p>
+                </div>
+                <ul>
+                    <?php
+                    foreach($ChansonsPassée as $chanson)
+                    {
+                        echo "<li><p>".$chanson['Titre']."</p> <p>".$chanson['Valeur']."</p></li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </div>
         <div class="Stat-left-bottom">

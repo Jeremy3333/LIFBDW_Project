@@ -8,5 +8,9 @@ $routes = array(
                 'controleur' => 'controleurAdd',
                 'vue' => 'vueAdd',
         ),
+        'Statistique' => array(
+                'controleur' => 'controleurStatistique',
+                'vue' => 'vueStatistique',
+        ),
     )
 ?>

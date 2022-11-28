@@ -308,4 +308,15 @@ function postInclut($idLL,$idV)
 
     mysqli_close($bdd);
 }
+function deleteInclut($idLL)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $sql = "DELETE * FROM Inclut WHERE idLL = '$idLL'";
+    mysqli_query($bdd, $sql);
+
+    mysqli_close($bdd);
+}
 ?>

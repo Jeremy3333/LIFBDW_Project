@@ -26,7 +26,7 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
         if($timepl+60 < $addduree)
         {
             deleteInclut($idLL);
-            $addduree =0;
+            $addduree = 0;
         }
     }
 }

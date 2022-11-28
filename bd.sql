@@ -57,8 +57,8 @@ CREATE TABLE VersionsMusique(
 );
 
 CREATE TABLE Listes_de_lecture(
-   idLL BIGINT,
-   Titre VARCHAR(50),
+   idLL BIGINT NOT NULL AUTO_INCREMENT,
+   Titre VARCHAR(255),
    DateCréation DATE,
    PRIMARY KEY(idLL)
 );

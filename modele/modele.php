@@ -3,8 +3,8 @@
 function getBdd()
 {
     $servername = "localhost";
-    $username = "p2103485";
-    $password = "Salon17Spree";
+    $username = "p2102785";
+    $password = "Supper10Jurist";
     $conn = new mysqli($servername, $username, $password);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -13,7 +13,7 @@ function getBdd()
 }
 function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     if(!(isset($titre) && is_string($titre) && isset($date) && is_string($date) && isset($durée) && is_string($durée) && isset($nomFichier) && is_string($nomFichier) && isset($groupe) && is_integer($groupe) && isset($genre) && is_integer($genre)))
     {
@@ -241,7 +241,7 @@ function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
 }
 function getGroupes()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM GroupeMusique";
@@ -263,7 +263,7 @@ function getRowData($bdd)
 }
 function getGenres()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Genres";
@@ -272,6 +272,68 @@ function getGenres()
     //close connection
     mysqli_close($bdd);
     return $genres;
+}
+function getVersion($genre)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_groupe = "SELECT v.* FROM (VersionsMusique v NATURAL JOIN Caractérise t) NATURAL JOIN Genres g WHERE g.idG = '$genre'";
+    $result = mysqli_query($bdd, $req_groupe);
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $versions;
+}
+function postListesdeLecture($titre)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $titre = $bdd->real_escape_string($titre);
+
+    $sql = "SELECT * FROM Listes_de_lecture WHERE Titre = '$titre'";
+    $result = $bdd->query($sql);
+    if (mysqli_num_rows($result) > 0) {
+        return false;
+    }
+
+    $sql = "INSERT INTO Listes_de_lecture(Titre,DateCréation) VALUES ('$titre',CAST(NOW() AS DATE))";
+    mysqli_query($bdd, $sql);
+
+    $idLL = mysqli_insert_id($bdd);
+
+    mysqli_close($bdd);
+
+    return $idLL;
+}
+function postInclut($idLL,$idV)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $sql = "SELECT idC FROM VersionsMusique WHERE idV = '$idV'";
+    $result = $bdd->query($sql);
+    $row = $result->fetch_assoc();
+    $idC = $row['idC'];
+
+    $sql = "INSERT INTO Inclut VALUES ('$idC','$idV','$idLL')";
+    mysqli_query($bdd, $sql);
+
+    mysqli_close($bdd);
+}
+function deleteInclut($idLL)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $sql = "DELETE * FROM Inclut WHERE idLL = '$idLL'";
+    mysqli_query($bdd, $sql);
+
+    mysqli_close($bdd);
 }
 function getTopChansons()
 {

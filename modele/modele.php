@@ -251,6 +251,18 @@ function getGroupes()
     mysqli_close($bdd);
     return $groupes;
 }
+function getChansons()
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_chanson = "SELECT * FROM Chansons";
+    $result = mysqli_query($bdd, $req_chanson);
+    $chansons = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $chansons;
+}
 function getRowData($bdd)
 {
     $database = "dataset";

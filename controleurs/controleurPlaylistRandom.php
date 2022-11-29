@@ -25,11 +25,19 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 
         if($timepl+60 < $addduree)
         {
-            deleteInclut($idLL);
-            $addduree = 0;
+            $versions = getVersionLL($idLL); //getVersionLL à faire
+            $nbVersion = count($versionsLL);
+            $nbs = rand(0,$nbVersion-1);
+            deleteInclut($versions[$nbs],$idLL); //refaire deleteInclut
+            $addduree -= timeToSeconds($versions[$nbs]['Durée']);
         }
     }
+
+    echo "<p>La playlist dure : ".$addduree."</p>";
+    
+    echo "<p>La playlist comorte : ".pourcentageGenre($idLL)."% du genre ".nomGenre($genre)."</p>"; //pourcentageGenre et nomGenre à faire
 }
+
 
 if(isset($_POST['Créer']))
 {

@@ -8,6 +8,8 @@ function timeToSeconds(string $time)
     return $arr[0] * 60 + $arr[1];
 }
 
+
+
 function makeRandomPlaylist($titre, $duree, $genre, $pref)
 {
     $addduree = 0;
@@ -25,17 +27,20 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 
         if($timepl+60 < $addduree)
         {
-            $versions = getVersionLL($idLL); //getVersionLL à faire
+            $versionsLL = getVersionLL($idLL);
             $nbVersion = count($versionsLL);
             $nbs = rand(0,$nbVersion-1);
-            deleteInclut($versions[$nbs],$idLL); //refaire deleteInclut
+            print_r($versions);
+            deleteInclut($versionsLL[$nbs]['idV'],$idLL);
             $addduree -= timeToSeconds($versions[$nbs]['Durée']);
         }
     }
 
+    echo "<p>".$titre."</p>";
+
     echo "<p>La playlist dure : ".$addduree."</p>";
     
-    echo "<p>La playlist comorte : ".pourcentageGenre($idLL)."% du genre ".nomGenre($genre)."</p>"; //pourcentageGenre et nomGenre à faire
+    echo "<p>La playlist comorte : ".pourcentageGenre($idLL,$genre)."% du genre ".nomGenre($genre)."</p>";
 }
 
 

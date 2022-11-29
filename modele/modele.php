@@ -269,6 +269,21 @@ function getVersion($genre)
     mysqli_close($bdd);
     return $versions;
 }
+function getVersionLL($idLL)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT idV FROM Inclut WHERE idLL = '$idLL'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $versionsLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $versionsLL;
+}
 function postListesdeLecture($titre)
 {
     $username = "p2102785";
@@ -308,15 +323,49 @@ function postInclut($idLL,$idV)
 
     mysqli_close($bdd);
 }
-function deleteInclut($idLL)
+function deleteInclut($idV,$idLL)
 {
     $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $sql = "DELETE * FROM Inclut WHERE idLL = '$idLL'";
+    $sql = "DELETE * FROM Inclut WHERE idLL = '$idLL' AND idV = '$idV'";
     mysqli_query($bdd, $sql);
 
     mysqli_close($bdd);
+}
+function nomGenre($genre)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT Genre FROM Genres WHERE idG = '$genre'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $genre = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $genre;
+}
+function pourcentageGenre($idLL,$genre)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT i.idV FROM (Iclut i NATURAL JOIN Versions v) NATURAL JOIN Genres g WHERE i.idLL='$idLL' AND g.idG='$genre'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    $versiosn = getVersionLL($idLL);
+
+    $pourcent = (count($genres)/count($versions))*100;
+
+    return $pourcent;
 }
 ?>

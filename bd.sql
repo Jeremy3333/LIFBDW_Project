@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Fonde;
 DROP TABLE IF EXISTS Albums_Studio;
 DROP TABLE IF EXISTS Albums_Compilation;
 DROP TABLE IF EXISTS Compose;
@@ -14,7 +15,6 @@ DROP TABLE IF EXISTS InvitéGroupeMusique;
 DROP TABLE IF EXISTS Genres;
 DROP TABLE IF EXISTS Albums_Lives;
 DROP TABLE IF EXISTS Lieux;
-DROP TABLE IF EXISTS Periodes;
 DROP TABLE IF EXISTS Musiciens;
 DROP TABLE IF EXISTS Listes_de_lecture;
 DROP TABLE IF EXISTS VersionsMusique;
@@ -24,22 +24,22 @@ DROP TABLE IF EXISTS GroupeMusique;
 
 CREATE TABLE GroupeMusique(
    idGM BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-   Nom VARCHAR(50),
+   Nom VARCHAR(128),
    DateFormation DATE,
    DateSéparation DATE
 );
 
 CREATE TABLE Chansons(
-   idC BIGINT NOT NULL,
+   idC BIGINT NOT NULL AUTO_INCREMENT,
    idGM BIGINT NOT NULL,
-   Titre VARCHAR(50),
+   Titre VARCHAR(128),
    DateCréation DATE,
    PRIMARY KEY (idC),
    FOREIGN KEY (idGM) REFERENCES GroupeMusique(idGM)
 );
 
 CREATE TABLE Musiciens(
-   idM BIGINT NOT NULL,
+   idM BIGINT NOT NULL AUTO_INCREMENT,
    Nom VARCHAR(50),
    Prénom VARCHAR(50),
    NomScène VARCHAR(50),
@@ -48,24 +48,24 @@ CREATE TABLE Musiciens(
 
 CREATE TABLE VersionsMusique(
    idC BIGINT,
-   idV BIGINT,
+   idV BIGINT NOT NULL,
    Forme VARCHAR(50),
    Durée TIME,
-   Nom VARCHAR(255),
+   Fichier VARCHAR(500),
    PRIMARY KEY(idC, idV),
    FOREIGN KEY(idC) REFERENCES Chansons(idC)
 );
 
 CREATE TABLE Listes_de_lecture(
    idLL BIGINT NOT NULL AUTO_INCREMENT,
-   Titre VARCHAR(255),
+   Titre VARCHAR(50),
    DateCréation DATE,
    PRIMARY KEY(idLL)
 );
 
 CREATE TABLE Albums(
-   idA BIGINT,
-   Titre VARCHAR(50),
+   idA BIGINT NOT NULL AUTO_INCREMENT,
+   Titre VARCHAR(128),
    DateSortie DATE,
    Producteur VARCHAR(50),
    PRIMARY KEY(idA)
@@ -99,7 +99,7 @@ CREATE TABLE Albums_Compilation(
 );
 
 CREATE TABLE Genres(
-   idG BIGINT,
+   idG BIGINT NOT NULL AUTO_INCREMENT,
    Genre VARCHAR(50),
    idG_1 BIGINT,
    PRIMARY KEY(idG),
@@ -107,11 +107,10 @@ CREATE TABLE Genres(
 );
 
 CREATE TABLE Compose(
-   idGM BIGINT,
+   idGM BIGINT NOT NULL,
    idM BIGINT,
    DateDébut DATE,
    DateFin DATE,
-   Fondateur VARCHAR(50),
    Metier VARCHAR(50),
    PRIMARY KEY(idGM, idM, DateDébut, DateFin),
    FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM),
@@ -137,9 +136,9 @@ CREATE TABLE Repris(
 );
 
 CREATE TABLE Possède(
-   idC BIGINT,
-   idV BIGINT,
-   idA BIGINT,
+   idC BIGINT NOT NULL,
+   idV BIGINT NOT NULL,
+   idA BIGINT NOT NULL,
    NuméroPiste BIGINT,
    PRIMARY KEY(idC, idV, idA),
    FOREIGN KEY(idC, idV) REFERENCES VersionsMusique(idC, idV),
@@ -207,31 +206,37 @@ CREATE TABLE InvitéGroupeMusique(
    FOREIGN KEY(idA) REFERENCES Albums(idA)
 );
 
-INSERT INTO GroupeMusique VALUES(1, 'Junkerito', '1900-01-01', '2013-06-25');
-INSERT INTO GroupeMusique VALUES(2, 'Prrrrt', '1925-12-30', '2013-06-25');
-INSERT INTO Musiciens VALUES(1, 'Grënbe', 'Julio', 'Ninjart');
-INSERT INTO Musiciens VALUES(2, 'Varex', 'Erwan', 'Ninjart');
-INSERT INTO Chansons VALUES(1, 1, 'Hector Dupuisse', '1925-12-30');
-INSERT INTO Genres VALUES(1, "Junkeroulade", NULL);
-INSERT INTO Genres VALUES(2, "full", 1);
-INSERT INTO VersionsMusique VALUES(1, 1, 'version original', '03:20:00.000000', 'hector_dupuisse_original.mp3');
-INSERT INTO VersionsMusique VALUES(1, 2, 'version live', '04:12:00.000000', 'hector_dupuisse_bercy2001.mp3');
-INSERT INTO VersionsMusique VALUES(1, 3, 'version remix', '02:47:00.000000', 'hector_dupuisse_remixPrrrt.mp3');
-INSERT INTO Listes_de_lecture VALUES(1, 'Les 10 titres triple diamant de Jukerito', '2013-06-25');
-INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
-INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');
-INSERT INTO Albums VALUES(3, 'Ptdr t ki', '1789-08-14', 'Robespierre');
-INSERT INTO Albums_Studio VALUES(1, 'Pablo Pablo-Pablo');
-INSERT INTO Albums_Compilation VALUES (2, "Il s'agit de toutes les featuring de Junkerito");
-INSERT INTO Albums_Lives VALUES(3);
-INSERT INTO Lieux VALUES(1, 'Phobos', 'Mars');
-INSERT INTO Situé VALUES(1, '1978-02-26', 3);
-INSERT INTO Compose VALUES(1, 1, '1927-07-14', '2013-06-26', TRUE, 'Bassiste');
-INSERT INTO Possède VALUES(1, 1, 1, 1);
-INSERT INTO InvitéMusiciens VALUES(2, 1, 'Groupe très gentil');
-INSERT INTO InvitéGroupeMusique VALUES(2, 1, 'Spectaculaire !');
-INSERT INTO Relation VALUES(1, 'Suite', 1);
-INSERT INTO Comporte VALUES(1, 1 , 'Nombre de notes', 100);
-INSERT INTO Inclut VALUES(1, 1, 1);
-INSERT INTO Caractérise VALUES(1, 1);
-INSERT INTO Enregistré VALUES(1, 1);
+CREATE TABLE Fonde(
+   idGM BIGINT,
+   idM BIGINT,
+   PRIMARY KEY(idGM, idM),
+   FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM),
+   FOREIGN KEY(idM) REFERENCES Musiciens(idM)
+);
+
+-- INSERT INTO GroupeMusique VALUES(1, 'Junkerito', '1900-01-01', '2013-06-25');
+-- INSERT INTO GroupeMusique VALUES(2, 'Prrrrt', '1925-12-30', '2013-06-25');
+-- INSERT INTO Musiciens VALUES(1, 'Grënbe', 'Julio', 'Ninjart');
+-- INSERT INTO Musiciens VALUES(2, 'Varex', 'Erwan', 'Ninjart');
+-- INSERT INTO Chansons VALUES(1, 1, 'Hector Dupuisse', '1925-12-30');
+-- INSERT INTO Genres VALUES(1, "Junkeroulade", NULL);
+-- INSERT INTO Genres VALUES(2, "full", 1);
+-- INSERT INTO VersionsMusique VALUES(1, 1, 'version original', '03:20:00.000000', 'hector_dupuisse_original.mp3');
+-- INSERT INTO Listes_de_lecture VALUES(1, 'Les 10 titres triple diamant de Jukerito', '2013-06-25');
+-- INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
+-- INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');
+-- INSERT INTO Albums VALUES(3, 'Ptdr t ki', '1989-08-14', 'Robespierre');
+-- INSERT INTO Albums_Studio VALUES(1, 'Pablo Pablo-Pablo');
+-- INSERT INTO Albums_Compilation VALUES (2, "Il s'agit de toutes les featuring de Junkerito");
+-- INSERT INTO Albums_Lives VALUES(3);
+-- INSERT INTO Lieux VALUES(1, 'Phobos', 'Mars');
+-- INSERT INTO Situé VALUES(1, '1978-02-26', 3);
+-- INSERT INTO Compose VALUES(1, 1, '1927-07-14', '2013-06-26', TRUE, 'Bassiste');
+-- INSERT INTO Possède VALUES(1, 1, 1, 1);
+-- INSERT INTO InvitéMusiciens VALUES(2, 1, 'Groupe très gentil');
+-- INSERT INTO InvitéGroupeMusique VALUES(2, 1, 'Spectaculaire !');
+-- INSERT INTO Relation VALUES(1, 'Suite', 1);
+-- INSERT INTO Comporte VALUES(1, 1 , 'Nombre de notes', 100);
+-- INSERT INTO Inclut VALUES(1, 1, 1);
+-- INSERT INTO Caractérise VALUES(1, 1);
+-- INSERT INTO Enregistré VALUES(1, 1);

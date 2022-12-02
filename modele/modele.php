@@ -269,13 +269,25 @@ function getVersion($genre)
     mysqli_close($bdd);
     return $versions;
 }
+function getVersionAll()
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_groupe = "SELECT * FROM VersionsMusique";
+    $result = mysqli_query($bdd, $req_groupe);
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $versions;
+}
 function getVersionLL($idLL)
 {
     $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $req_groupe = "SELECT idV FROM Inclut WHERE idLL = '$idLL'";
+    $req_groupe = "SELECT v.* FROM Inclut NATURAL JOIN VersionsMusique v WHERE idLL = '$idLL'";
     $result = mysqli_query($bdd, $req_groupe);
 
     $versionsLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -301,11 +313,22 @@ function postListesdeLecture($titre)
     $sql = "INSERT INTO Listes_de_lecture(Titre,DateCréation) VALUES ('$titre',CAST(NOW() AS DATE))";
     mysqli_query($bdd, $sql);
 
-    $idLL = mysqli_insert_id($bdd);
+    mysqli_close($bdd);
+}
+function getidLL()
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT MAX(idLL) FROM Listes_de_lecture";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $idLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     mysqli_close($bdd);
 
-    return $idLL;
+    return $idLL[0]['MAX(idLL)'];
 }
 function postInclut($idLL,$idV)
 {
@@ -347,7 +370,7 @@ function nomGenre($genre)
 
     mysqli_close($bdd);
 
-    return $genre;
+    return $genre[0]['Genre'];
 }
 function pourcentageGenre($idLL,$genre)
 {
@@ -355,14 +378,17 @@ function pourcentageGenre($idLL,$genre)
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $req_groupe = "SELECT i.idV FROM (Iclut i NATURAL JOIN Versions v) NATURAL JOIN Genres g WHERE i.idLL='$idLL' AND g.idG='$genre'";
+    $req_groupe = "SELECT * FROM (Inclut NATURAL JOIN VersionsMusique) NATURAL JOIN Caractérise WHERE idG='$genre' AND idLL='$idLL'";
     $result = mysqli_query($bdd, $req_groupe);
 
     $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     mysqli_close($bdd);
 
-    $versiosn = getVersionLL($idLL);
+    $versions = getVersionLL($idLL);
+
+    print_r($genres);
+    print_r($versions);
 
     $pourcent = (count($genres)/count($versions))*100;
 

@@ -13,12 +13,24 @@ function timeToSeconds(string $time)
 function makeRandomPlaylist($titre, $duree, $genre, $pref)
 {
     $addduree = 0;
-    $idLL = postListesdeLecture($titre);
+    $i = 1;
+    postListesdeLecture($titre);
+    $idLL = getidLL();
     $timepl = timeToSeconds($duree);
 
     while ($timepl-60 >= $addduree or $timepl+60 <= $addduree)
     {
-        $versions = getVersion($genre);
+        if($i%4==0)
+        {
+            $versions = getVersionAll();
+            $i++;
+        }
+        else
+        {
+            $versions = getVersion($genre);
+            $i++;
+        }
+
         $nbVersion = count($versions);
         $nb = rand(0,$nbVersion-1);
         postInclut($idLL,$versions[$nb]['idV']);
@@ -27,19 +39,18 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 
         if($timepl+60 < $addduree)
         {
-            $versionsLL = getVersionLL($idLL);
-            $nbVersion = count($versionsLL);
+            $versions = getVersionLL($idLL);
+            $nbVersion = count($versions);
             $nbs = rand(0,$nbVersion-1);
-            print_r($versions);
-            deleteInclut($versionsLL[$nbs]['idV'],$idLL);
+            deleteInclut($versions[$nbs]['idV'],$idLL);
             $addduree -= timeToSeconds($versions[$nbs]['Durée']);
         }
     }
 
     echo "<p>".$titre."</p>";
 
-    echo "<p>La playlist dure : ".$addduree."</p>";
-    
+    echo "<p>La playlist dure : ".gmdate("H:i:s",$addduree)."</p>";
+
     echo "<p>La playlist comorte : ".pourcentageGenre($idLL,$genre)."% du genre ".nomGenre($genre)."</p>";
 }
 

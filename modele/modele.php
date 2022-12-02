@@ -263,6 +263,22 @@ function getChansons()
     mysqli_close($bdd);
     return $chansons;
 }
+function getVersion($idC, $idV)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_version = "SELECT Titre, Nom, Durée, Fichier FROM (Versions NATURAL JOIN Chansons) NATURAL JOIN GroupeMusique WHERE idC = '$idC' AND idV = '$idV'";
+    $result = mysqli_query($bdd, $req_version);
+    // check error and print error
+    if (!$result) {
+        $message  = 'Invalid query: ' . mysqli_error($bdd) . "<br>";
+    }
+    $version = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $version;
+}
 function getRowData($bdd)
 {
     $database = "dataset";

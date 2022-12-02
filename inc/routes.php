@@ -12,5 +12,9 @@ $routes = array(
                 'controleur' => 'controleurStatistique',
                 'vue' => 'vueStatistique',
         ),
+        'Musiques' => array(
+                'controleur' => 'controleurMusiques',
+                'vue' => 'vueMusiques',
+        ),
     )
 ?>

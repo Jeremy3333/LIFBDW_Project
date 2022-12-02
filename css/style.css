@@ -261,17 +261,7 @@ footer p{
     margin-bottom: auto;
     box-shadow: 1px 1px 1px 1px gray;
 }
-.box-high{
-    height: 90%;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: top;
-    border-radius: 20px;
-    margin-top: auto;
-    margin-bottom: auto;
-    box-shadow: 1px 1px 1px 1px gray;
-}.box ul {
+.box ul {
     height: 90%;
     width: 100%;
 }
@@ -292,10 +282,22 @@ footer p{
     font-size: 1.2em;
     color: #072463;
 }
+.box-high{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    border-radius: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    box-shadow: 1px 1px 1px 1px gray;
+}
 .box-high ul {
     height: 95.5%;
     width: 100%;
 }
+
 .box-high ul li {
     height: 5%;
     width: 100%;
@@ -303,6 +305,7 @@ footer p{
     flex-direction: row;
     justify-content: space-between;
 }
+
 .box-high ul li p {
     margin-top: auto;
     margin-bottom: auto;
@@ -338,4 +341,21 @@ footer p{
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 5%;
+}
+.Musiques{
+    height: 100%;
+    width: 85%;
+    overflow: scroll;
+}
+.Musiques ul {
+    height: 100%;
+    width: 100%;
+}
+.Musiques ul li {
+    height: 50px;
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 20px;
+    box-shadow: 1px 1px 1px 1px gray;
 }

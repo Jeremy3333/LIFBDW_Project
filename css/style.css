@@ -82,13 +82,13 @@ li a{
     display: flex;
     vertical-align: center;
 }
-li a img{
+nav li a img{
     height: 70%;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10%;
 }
-li a p{
+nav li a p{
     font-size: 1.2em;
     margin-top: auto;
     margin-bottom: auto;
@@ -358,4 +358,17 @@ footer p{
     margin-right: 5%;
     border-radius: 20px;
     box-shadow: 1px 1px 1px 1px gray;
+}
+.Musiques img {
+    height: 70%;
+    width: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5%;
+}
+.Musiques p {
+    font-size: 1.2em;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #995700;
 }

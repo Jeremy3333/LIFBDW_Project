@@ -2,8 +2,8 @@
     <form method="post" action="index.php?action=playlistRandom">
         <label for="titre">Nom de la playlist</label>
         <input type="text" name="titre" id="titre" placeholder="Nom de la playlist" require/>
-        <label for="duree">Durée</label>
-        <input type="time" name="duree" id="duree" placeholder="Durée" require/>
+        <label for="duree">Durée (Bien séparer les informtions par ':' et penser à mettre les 2 chifrres)</label>
+        <input type="text" pattern="([0-5]{1}[0-9]{1}:){0,2}[0-5]{0,1}[0-9]{1}(\.\d+)?" name="duree" id="duree" placeholder="Durée" require/>
         <label for="genre">Genre</label>
         <select name="genre" id="genre">
             <option value="default">Aucun genre priviligié</option>

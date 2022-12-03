@@ -2,9 +2,9 @@
 function timeToSeconds(string $time)
 {
     $arr = explode(':', $time);
-    // if (count($arr) === 3) {
-    //     return $arr[0] * 3600 + $arr[1] * 60 + $arr[2];
-    // }
+    if (count($arr) === 3) {
+        return $arr[0] * 3600 + $arr[1] * 60 + $arr[2];
+    }
     return $arr[0] * 60 + $arr[1];
 }
 
@@ -20,10 +20,13 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 
     while ($timepl-60 >= $addduree or $timepl+60 <= $addduree)
     {
-        if($i%4==0)
+        if ($genre=='default')
+            $i=4;
+
+        if($i==4)
         {
             $versions = getVersionAll();
-            $i++;
+            $i=0;
         }
         else
         {
@@ -51,7 +54,8 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 
     echo "<p>La playlist dure : ".gmdate("H:i:s",$addduree)."</p>";
 
-    echo "<p>La playlist comorte : ".pourcentageGenre($idLL,$genre)."% du genre ".nomGenre($genre)."</p>";
+    if ($genre!='default')
+        echo "<p>La playlist comorte : ".pourcentageGenre($idLL,$genre)."% du genre ".nomGenre($genre)."</p>";
 }
 
 

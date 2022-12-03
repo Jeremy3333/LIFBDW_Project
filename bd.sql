@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS GroupeMusique;
 
 CREATE TABLE GroupeMusique(
    idGM BIGINT NOT NULL AUTO_INCREMENT,
-   Nom VARCHAR(50),
+   Nom VARCHAR(255),
    DateFormation DATE,
    DateSéparation DATE,
    PRIMARY KEY(idGM)

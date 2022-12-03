@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Fonde;
 DROP TABLE IF EXISTS Albums_Studio;
 DROP TABLE IF EXISTS Albums_Compilation;
 DROP TABLE IF EXISTS Compose;
@@ -14,7 +15,6 @@ DROP TABLE IF EXISTS InvitéGroupeMusique;
 DROP TABLE IF EXISTS Genres;
 DROP TABLE IF EXISTS Albums_Lives;
 DROP TABLE IF EXISTS Lieux;
-DROP TABLE IF EXISTS Periodes;
 DROP TABLE IF EXISTS Musiciens;
 DROP TABLE IF EXISTS Listes_de_lecture;
 DROP TABLE IF EXISTS VersionsMusique;
@@ -31,16 +31,16 @@ CREATE TABLE GroupeMusique(
 );
 
 CREATE TABLE Chansons(
-   idC BIGINT NOT NULL,
+   idC BIGINT NOT NULL AUTO_INCREMENT,
    idGM BIGINT NOT NULL,
-   Titre VARCHAR(50),
+   Titre VARCHAR(128),
    DateCréation DATE,
    PRIMARY KEY (idC),
    FOREIGN KEY (idGM) REFERENCES GroupeMusique(idGM)
 );
 
 CREATE TABLE Musiciens(
-   idM BIGINT NOT NULL,
+   idM BIGINT NOT NULL AUTO_INCREMENT,
    Nom VARCHAR(50),
    Prénom VARCHAR(50),
    NomScène VARCHAR(50),
@@ -49,24 +49,24 @@ CREATE TABLE Musiciens(
 
 CREATE TABLE VersionsMusique(
    idC BIGINT,
-   idV BIGINT,
+   idV BIGINT NOT NULL,
    Forme VARCHAR(50),
    Durée TIME,
-   Nom VARCHAR(255),
+   Fichier VARCHAR(500),
    PRIMARY KEY(idC, idV),
    FOREIGN KEY(idC) REFERENCES Chansons(idC)
 );
 
 CREATE TABLE Listes_de_lecture(
    idLL BIGINT NOT NULL AUTO_INCREMENT,
-   Titre VARCHAR(255),
+   Titre VARCHAR(50),
    DateCréation DATE,
    PRIMARY KEY(idLL)
 );
 
 CREATE TABLE Albums(
-   idA BIGINT,
-   Titre VARCHAR(50),
+   idA BIGINT NOT NULL AUTO_INCREMENT,
+   Titre VARCHAR(128),
    DateSortie DATE,
    Producteur VARCHAR(50),
    PRIMARY KEY(idA)
@@ -100,7 +100,7 @@ CREATE TABLE Albums_Compilation(
 );
 
 CREATE TABLE Genres(
-   idG BIGINT,
+   idG BIGINT NOT NULL AUTO_INCREMENT,
    Genre VARCHAR(50),
    idG_1 BIGINT,
    PRIMARY KEY(idG),
@@ -108,11 +108,10 @@ CREATE TABLE Genres(
 );
 
 CREATE TABLE Compose(
-   idGM BIGINT,
+   idGM BIGINT NOT NULL,
    idM BIGINT,
    DateDébut DATE,
    DateFin DATE,
-   Fondateur VARCHAR(50),
    Metier VARCHAR(50),
    PRIMARY KEY(idGM, idM, DateDébut, DateFin),
    FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM),
@@ -138,9 +137,9 @@ CREATE TABLE Repris(
 );
 
 CREATE TABLE Possède(
-   idC BIGINT,
-   idV BIGINT,
-   idA BIGINT,
+   idC BIGINT NOT NULL,
+   idV BIGINT NOT NULL,
+   idA BIGINT NOT NULL,
    NuméroPiste BIGINT,
    PRIMARY KEY(idC, idV, idA),
    FOREIGN KEY(idC, idV) REFERENCES VersionsMusique(idC, idV),
@@ -208,6 +207,14 @@ CREATE TABLE InvitéGroupeMusique(
    FOREIGN KEY(idA) REFERENCES Albums(idA)
 );
 
+CREATE TABLE Fonde(
+   idGM BIGINT,
+   idM BIGINT,
+   PRIMARY KEY(idGM, idM),
+   FOREIGN KEY(idGM) REFERENCES GroupeMusique(idGM),
+   FOREIGN KEY(idM) REFERENCES Musiciens(idM)
+);
+
 -- INSERT INTO GroupeMusique VALUES(1, 'Junkerito', '1900-01-01', '2013-06-25');
 -- INSERT INTO GroupeMusique VALUES(2, 'Prrrrt', '1925-12-30', '2013-06-25');
 -- INSERT INTO Musiciens VALUES(1, 'Grënbe', 'Julio', 'Ninjart');
@@ -222,6 +229,10 @@ CREATE TABLE InvitéGroupeMusique(
 -- INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
 -- INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');
 -- INSERT INTO Albums VALUES(3, 'Ptdr t ki', '1789-08-14', 'Robespierre');
+-- INSERT INTO Listes_de_lecture VALUES(1, 'Les 10 titres triple diamant de Jukerito', '2013-06-25');
+-- INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
+-- INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');
+-- INSERT INTO Albums VALUES(3, 'Ptdr t ki', '1989-08-14', 'Robespierre');
 -- INSERT INTO Albums_Studio VALUES(1, 'Pablo Pablo-Pablo');
 -- INSERT INTO Albums_Compilation VALUES (2, "Il s'agit de toutes les featuring de Junkerito");
 -- INSERT INTO Albums_Lives VALUES(3);

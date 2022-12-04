@@ -4,8 +4,8 @@
         <input type="text" name="titre" id="titre" placeholder="Titre" require/>
         <label for="date">Date</label>
         <input type="date" name="date" id="date" placeholder="Date" require/>
-        <label for="duree">Durée</label>
-        <input type="time" name="duree" id="duree" placeholder="Durée" require/>
+        <label for="duree">Durée (Bien séparer les informtions par ':' et penser à mettre les 2 chifrres)</label>
+        <input type="text" pattern="([0-5]{1}[0-9]{1}:){0,2}[0-5]{0,1}[0-9]{1}(\.\d+)?" name="duree" id="duree" placeholder="Durée" require/>
         <label for="nomFichier">Nom du fichier</label>
         <input type="text" name="nomFichier" id="nomFichier" placeholder="Nom du fichier" require/>
         <label for="groupe">Groupe</label>

@@ -20,5 +20,13 @@ $routes = array(
                 'controleur' => 'controleurMusique',
                 'vue' => 'vueMusique',
         ),
+        'Playlist' => array(
+                'controleur' => 'controleurPlaylist',
+                'vue' => 'vuePlaylist',
+        ),
+        'playlistRandom' => array(
+                'controleur' => 'controleurPlaylistRandom',
+                'vue' => 'vuePlaylistRandom',
+        )
     )
 ?>

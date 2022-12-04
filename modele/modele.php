@@ -337,4 +337,141 @@ function getChansonsPassée()
     mysqli_close($bdd);
     return $topChansons;
 }
+function nomGenre($genre)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT Genre FROM Genres WHERE idG = '$genre'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $genre = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $genre[0]['Genre'];
+}
+function pourcentageGenre($idLL,$genre)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT * FROM (Inclut NATURAL JOIN VersionsMusique) NATURAL JOIN Caractérise WHERE idG='$genre' AND idLL='$idLL'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    $versions = getVersionLL($idLL);
+
+    $pourcent = (count($genres)/count($versions))*100;
+
+    return $pourcent;
+}
+function postListesdeLecture($titre)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $titre = $bdd->real_escape_string($titre);
+
+    $sql = "SELECT * FROM Listes_de_lecture WHERE Titre = '$titre'";
+    $result = $bdd->query($sql);
+    if (mysqli_num_rows($result) > 0) {
+        return false;
+    }
+
+    $sql = "INSERT INTO Listes_de_lecture(Titre,DateCréation) VALUES ('$titre',CAST(NOW() AS DATE))";
+    mysqli_query($bdd, $sql);
+
+    $idLL = mysqli_insert_id($bdd);
+
+    mysqli_close($bdd);
+
+    return $idLL;
+}
+function getVersionByGenre($genre)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_groupe = "SELECT v.* FROM (VersionsMusique v NATURAL JOIN Caractérise t) NATURAL JOIN Genres g WHERE g.idG = '$genre'";
+    $result = mysqli_query($bdd, $req_groupe);
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $versions;
+}
+function postInclut($idLL,$idV)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $sql = "SELECT idC FROM VersionsMusique WHERE idV = '$idV'";
+    $result = $bdd->query($sql);
+    $row = $result->fetch_assoc();
+    $idC = $row['idC'];
+
+    $sql = "INSERT INTO Inclut VALUES ('$idC','$idV','$idLL')";
+    mysqli_query($bdd, $sql);
+
+    mysqli_close($bdd);
+}
+function getVersionAll()
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $req_groupe = "SELECT * FROM VersionsMusique";
+    $result = mysqli_query($bdd, $req_groupe);
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //close connection
+    mysqli_close($bdd);
+    return $versions;
+}
+function getVersionLL($idLL)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT v.* FROM Inclut NATURAL JOIN VersionsMusique v WHERE idLL = '$idLL'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $versionsLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_close($bdd);
+
+    return $versionsLL;
+}
+function deleteInclut($idV,$idLL)
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $sql = "DELETE * FROM Inclut WHERE idLL = '$idLL' AND idV = '$idV'";
+    mysqli_query($bdd, $sql);
+
+    mysqli_close($bdd);
+}
+function getidLL()
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT MAX(idLL) FROM Listes_de_lecture";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $idLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $idLL[0]['MAX(idLL)'];
+}
 ?>

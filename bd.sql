@@ -26,7 +26,8 @@ CREATE TABLE GroupeMusique(
    idGM BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
    Nom VARCHAR(128),
    DateFormation DATE,
-   DateSéparation DATE
+   DateSéparation DATE,
+   PRIMARY KEY(idGM)
 );
 
 CREATE TABLE Chansons(
@@ -57,7 +58,7 @@ CREATE TABLE VersionsMusique(
 );
 
 CREATE TABLE Listes_de_lecture(
-   idLL BIGINT,
+   idLL BIGINT NOT NULL AUTO_INCREMENT,
    Titre VARCHAR(50),
    DateCréation DATE,
    PRIMARY KEY(idLL)
@@ -222,6 +223,12 @@ CREATE TABLE Fonde(
 -- INSERT INTO Genres VALUES(1, "Junkeroulade", NULL);
 -- INSERT INTO Genres VALUES(2, "full", 1);
 -- INSERT INTO VersionsMusique VALUES(1, 1, 'version original', '03:20:00.000000', 'hector_dupuisse_original.mp3');
+-- INSERT INTO VersionsMusique VALUES(1, 2, 'version live', '04:12:00.000000', 'hector_dupuisse_bercy2001.mp3');
+-- INSERT INTO VersionsMusique VALUES(1, 3, 'version remix', '02:47:00.000000', 'hector_dupuisse_remixPrrrt.mp3');
+-- INSERT INTO Listes_de_lecture VALUES(1, 'Les 10 titres triple diamant de Jukerito', '2013-06-25');
+-- INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
+-- INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');
+-- INSERT INTO Albums VALUES(3, 'Ptdr t ki', '1789-08-14', 'Robespierre');
 -- INSERT INTO Listes_de_lecture VALUES(1, 'Les 10 titres triple diamant de Jukerito', '2013-06-25');
 -- INSERT INTO Albums VALUES(1, 'People de toi', '1927-07-14', 'Jean-Jacques Shiraky');
 -- INSERT INTO Albums VALUES(2, 'Je sais pas', '1978-02-26', 'Jean-Jacques Shirako');

@@ -82,13 +82,13 @@ li a{
     display: flex;
     vertical-align: center;
 }
-li a img{
+nav li a img{
     height: 70%;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10%;
 }
-li a p{
+nav li a p{
     font-size: 1.2em;
     margin-top: auto;
     margin-bottom: auto;
@@ -358,4 +358,108 @@ footer p{
     margin-right: 5%;
     border-radius: 20px;
     box-shadow: 1px 1px 1px 1px gray;
+}
+.Musiques img {
+    height: 70%;
+    width: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5%;
+}
+.Musiques p {
+    font-size: 1.2em;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #995700;
+}.Form {
+    height: 100%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Form form {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Form form label {
+    font-size: 1.5em;
+    color: #072463;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.Form form input {
+    height: 5%;
+    width: 100%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    border: none;
+    padding-left: 5%;
+    font-size: 1.2em;
+    border: #515151 solid 1px;
+}
+
+.Form form input[type="submit"] {
+    height: 5%;
+    width: 100%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    border: none;
+    background-color: #072463;
+    color: #FDDBAE;
+    font-size: 1.2em;
+}
+
+.Form form select {
+    height: 5%;
+    width: 100%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    border: none;
+    padding-left: 5%;
+    font-size: 1.2em;
+    border: #515151 solid 1px;
+}
+
+.Playlist {
+    height: 100%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Playlist a {
+    background-color: #94B2F0;
+    height: 7%;
+    width: 19%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-right: 4%;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+.Playlist img {
+    height: 70%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5%;
+}
+
+.Playlist p {
+    color: #995700;
+    margin-left: 5%;
+    margin-top: auto;
+    margin-bottom: auto;
 }

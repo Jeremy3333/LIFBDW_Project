@@ -1,0 +1,3 @@
+<?php
+    $playlists = getListesDeLecture();
+?>

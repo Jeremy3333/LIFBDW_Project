@@ -21,19 +21,36 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
     {
         if ($genre=='default')
             $i=4;
-
-        if($i==4)
+        
+        if($pref=='default')
         {
-            $versions = getVersionAll();
-            $i=0;
+            if($i==4)
+            {
+                $versions = getVersionAll();
+                $i=0;
+            }
+            else
+            {
+                $versions = getVersionByGenre($genre);
+                $i++;
+            }
         }
         else
         {
-            $versions = getVersionByGenre($genre);
-            $i++;
+            if($i==4)
+            {
+                $versions = getVersionAllByPref($pref,round($timepl/200));
+                $i=0;
+            }
+            else
+            {
+                $versions = getVersionByGenreAndPref($genre,$pref,round($timepl/200));
+                $i++;
+            }
         }
 
         $nbVersion = count($versions);
+        print_r($versions);
         $nb = rand(0,$nbVersion-1);
         postInclut($idLL,$versions[$nb]['idV']);
 

@@ -3,8 +3,8 @@
 function getBdd()
 {
     $servername = "localhost";
-    $username = "p2103485";
-    $password = "Salon17Spree";
+    $username = "p2102785";
+    $password = "Supper10Jurist";
     $conn = new mysqli($servername, $username, $password);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -13,7 +13,7 @@ function getBdd()
 }
 function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     if(!(isset($titre) && is_string($titre) && isset($date) && is_string($date) && isset($durée) && is_string($durée) && isset($nomFichier) && is_string($nomFichier) && isset($groupe) && is_integer($groupe) && isset($genre) && is_integer($genre)))
     {
@@ -81,6 +81,9 @@ function postGroupe($nom, $bdd)
 
     $sql = "SELECT idGM FROM GroupeMusique WHERE Nom = '$nom'";
     $result = $bdd->query($sql);
+    if (mysqli_error($bdd)) {
+        echo mysqli_error($bdd) . "<br>";
+    }
     $groupes = mysqli_fetch_all($result, MYSQLI_ASSOC);
     if (mysqli_num_rows($result) > 0) {
         return $groupes[0]['idGM'];
@@ -241,7 +244,7 @@ function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
 }
 function getGroupes()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM GroupeMusique";
@@ -253,7 +256,7 @@ function getGroupes()
 }
 function getChansons()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_chanson = "SELECT * FROM Chansons";
@@ -265,7 +268,7 @@ function getChansons()
 }
 function getVersion($idC, $idV)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_version = "SELECT Titre, Nom, Durée, Fichier FROM (Versions NATURAL JOIN Chansons) NATURAL JOIN GroupeMusique WHERE idC = '$idC' AND idV = '$idV'";
@@ -291,7 +294,7 @@ function getRowData($bdd)
 }
 function getGenres()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Genres";
@@ -303,7 +306,7 @@ function getGenres()
 }
 function getTopChansons()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT ch.Titre, c.Valeur FROM Chansons ch NATURAL JOIN Comporte c WHERE c.Libellé = 'playcount' ORDER BY c.Valeur DESC LIMIT 20";
@@ -315,7 +318,7 @@ function getTopChansons()
 }
 function getChansonsRecente()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT Titre, DateCréation FROM Chansons ORDER BY DateCréation DESC LIMIT 5";
@@ -327,7 +330,7 @@ function getChansonsRecente()
 }
 function getChansonsPassée()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT ch.Titre, c.Valeur FROM Chansons ch NATURAL JOIN Comporte c WHERE c.Libellé = 'skipcount' ORDER BY c.Valeur DESC LIMIT 5";
@@ -339,7 +342,7 @@ function getChansonsPassée()
 }
 function nomGenre($genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -354,7 +357,7 @@ function nomGenre($genre)
 }
 function pourcentageGenre($idLL,$genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -373,17 +376,11 @@ function pourcentageGenre($idLL,$genre)
 }
 function postListesdeLecture($titre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
     $titre = $bdd->real_escape_string($titre);
-
-    $sql = "SELECT * FROM Listes_de_lecture WHERE Titre = '$titre'";
-    $result = $bdd->query($sql);
-    if (mysqli_num_rows($result) > 0) {
-        return false;
-    }
 
     $sql = "INSERT INTO Listes_de_lecture(Titre,DateCréation) VALUES ('$titre',CAST(NOW() AS DATE))";
     mysqli_query($bdd, $sql);
@@ -396,19 +393,34 @@ function postListesdeLecture($titre)
 }
 function getVersionByGenre($genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
-    $req_groupe = "SELECT v.* FROM (VersionsMusique v NATURAL JOIN Caractérise t) NATURAL JOIN Genres g WHERE g.idG = '$genre'";
+    $req_groupe = "SELECT v.* FROM VersionsMusique v NATURAL JOIN Caractérise t WHERE t.idG = '$genre'";
     $result = mysqli_query($bdd, $req_groupe);
     $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
     //close connection
     mysqli_close($bdd);
     return $versions;
 }
+function getVersionByGenreAndPref($genre,$pref,$nbe)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT v.* FROM (VersionsMusique v NATURAL JOIN Caractérise t) NATURAL JOIN Comporte c WHERE t.idG = '$genre' AND c.Libellé = '$pref' ORDER BY c.Valeur DESC LIMIT ".$nbe;
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+    mysqli_close($bdd);
+
+    return $versions;
+}
 function postInclut($idLL,$idV)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -424,7 +436,7 @@ function postInclut($idLL,$idV)
 }
 function getVersionAll()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM VersionsMusique";
@@ -434,9 +446,24 @@ function getVersionAll()
     mysqli_close($bdd);
     return $versions;
 }
+function getVersionAllByPref($pref)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT v.* FROM VersionsMusique v NATURAL JOIN Comporte c WHERE c.Libellé = '$pref' ORDER BY c.Valeur DESC LIMIT ".$nbe;
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $versions;
+}
 function getVersionLL($idLL)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -450,7 +477,7 @@ function getVersionLL($idLL)
 }
 function deleteInclut($idV,$idLL)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -458,20 +485,5 @@ function deleteInclut($idV,$idLL)
     mysqli_query($bdd, $sql);
 
     mysqli_close($bdd);
-}
-function getidLL()
-{
-    $username = "p2103485";
-    $bdd = getBdd();
-    $bdd -> select_db($username);
-
-    $req_groupe = "SELECT MAX(idLL) FROM Listes_de_lecture";
-    $result = mysqli_query($bdd, $req_groupe);
-
-    $idLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    mysqli_close($bdd);
-
-    return $idLL[0]['MAX(idLL)'];
 }
 ?>

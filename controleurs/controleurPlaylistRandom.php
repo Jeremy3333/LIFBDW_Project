@@ -27,7 +27,7 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
             if($i==4)
             {
                 $versions = getVersionAll();
-                $i=0;
+                $i=1;
             }
             else
             {
@@ -40,7 +40,7 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
             if($i==4)
             {
                 $versions = getVersionAllByPref($pref,round($timepl/200));
-                $i=0;
+                $i=1;
             }
             else
             {
@@ -50,9 +50,8 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
         }
 
         $nbVersion = count($versions);
-        print_r($versions);
         $nb = rand(0,$nbVersion-1);
-        postInclut($idLL,$versions[$nb]['idV']);
+        postInclut($idLL,$versions[$nb]['idV'],$versions[$nb]['idC']);
 
         $addduree += timeToSeconds($versions[$nb]['Durée']);
 

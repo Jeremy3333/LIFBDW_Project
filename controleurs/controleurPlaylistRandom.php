@@ -1,15 +1,4 @@
 <?php
-function timeToSeconds(string $time)
-{
-    $arr = explode(':', $time);
-    if (count($arr) === 3) {
-        return $arr[0] * 3600 + $arr[1] * 60 + $arr[2];
-    }
-    return $arr[0] * 60 + $arr[1];
-}
-
-
-
 function makeRandomPlaylist($titre, $duree, $genre, $pref)
 {
     $addduree = 0;

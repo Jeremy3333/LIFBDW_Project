@@ -404,11 +404,14 @@ function getVersionByGenre($genre)
     $username = "p2103485";
     $bdd = getBdd();
     $bdd -> select_db($username);
+
     $req_groupe = "SELECT v.* FROM VersionsMusique v NATURAL JOIN Caractérise t WHERE t.idG = '$genre'";
     $result = mysqli_query($bdd, $req_groupe);
+
     $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    //close connection
+
     mysqli_close($bdd);
+
     return $versions;
 }
 function getVersionByGenreAndPref($genre,$pref,$nbe)
@@ -426,13 +429,13 @@ function getVersionByGenreAndPref($genre,$pref,$nbe)
 
     return $versions;
 }
-function postInclut($idLL,$idV)
+function postInclut($idLL,$idV,$idC)
 {
     $username = "p2103485";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $sql = "SELECT idC FROM VersionsMusique WHERE idV = '$idV'";
+    $sql = "SELECT idC FROM VersionsMusique WHERE idC = '$idC' AND idV = '$idV'";
     $result = $bdd->query($sql);
     $row = $result->fetch_assoc();
     $idC = $row['idC'];
@@ -447,14 +450,17 @@ function getVersionAll()
     $username = "p2103485";
     $bdd = getBdd();
     $bdd -> select_db($username);
+
     $req_groupe = "SELECT * FROM VersionsMusique";
     $result = mysqli_query($bdd, $req_groupe);
+
     $versions = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    //close connection
+
     mysqli_close($bdd);
+
     return $versions;
 }
-function getVersionAllByPref($pref)
+function getVersionAllByPref($pref,$nbe)
 {
     $username = "p2103485";
     $bdd = getBdd();

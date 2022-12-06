@@ -500,4 +500,42 @@ function deleteInclut($idV,$idLL)
 
     mysqli_close($bdd);
 }
+function getInfo($idLL)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT * FROM Listes_de_lecture WHERE idLL = '$idLL'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $ldl = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $ldl;
+}
+function getTitreChanson($idC)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT Titre FROM Chansons WHERE idC = '$idC'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $titre = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $titre[0]['Titre'];
+}
+function timeToSeconds(string $time)
+{
+    $arr = explode(':', $time);
+    if (count($arr) === 3) {
+        return $arr[0] * 3600 + $arr[1] * 60 + $arr[2];
+    }
+    return $arr[0] * 60 + $arr[1];
+}
 ?>

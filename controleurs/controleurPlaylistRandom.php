@@ -49,7 +49,7 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
             $versions = getVersionLL($idLL);
             $nbVersion = count($versions);
             $nbs = rand(0,$nbVersion-1);
-            deleteInclut($versions[$nbs]['idV'],$idLL);
+            deleteInclut($versions[$nbs]['idC'],$idLL);
             $addduree -= timeToSeconds($versions[$nbs]['Durée']);
         }
     }

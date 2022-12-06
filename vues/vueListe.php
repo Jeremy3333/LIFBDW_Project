@@ -1,4 +1,4 @@
-<div class="Musiques">
+<div class="Liste">
     <?php 
 
     $ldl = getInfo($_GET['idLL']);
@@ -7,6 +7,12 @@
     $titre = $ldl[0]['Titre'];
     $versions = getVersionLL($idLL);
     $addduree = 0;
+
+    if (isset($_GET['getdelete']))
+    {
+        deleteInclut($_GET['getdelete'],$idLL);
+
+    }
     
     echo "<h1>".$titre."</h1></br>";
 
@@ -24,7 +30,7 @@
         <?php
         foreach($versions as $version)
         {
-            echo "<li><a href='index.php?action=Musique&idC=".$version['idC']."'><img src='img/play.svg' /><p>".getTitreChanson($version['idC'])."</p></a></li>";
+            echo "<li><a class='group' href='index.php?action=Musique&idC=".$version['idC']."'><img src='img/play.svg' /><p>".getTitreChanson($version['idC'])."</p></a><a class='trash' href='index.php?action=Liste&idLL=".$idLL."&getdelete=".$version['idC']."'><img src='img/Trash.svg' /></a></li>";
         }
         ?>
     </ul>

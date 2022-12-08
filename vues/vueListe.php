@@ -1,5 +1,5 @@
 <div class="Liste">
-    <?php 
+    <?php
 
     if (isset($_GET['getdelete']))
     {
@@ -12,7 +12,7 @@
     $titre = $ldl[0]['Titre'];
     $versions = getVersionLL($idLL);
     $addduree = 0;
-    
+
     echo "<h1>".$titre."</h1></br>";
 
     $i = 0;
@@ -23,13 +23,15 @@
         $i++;
     }
 
-    
-
     echo "<p>Durée : ".gmdate("H:i:s",$addduree)."  Nombre de musiques : ".$i."</p>";
 
     // if ($genre!='default')
     //     echo "<p>".pourcentageGenre($idLL,$genre)."% du genre ".nomGenre($genre)."</p>";
     ?>
+    <a class="addButton" href='index.php?action=AddList<?php echo"&idLL=".$_GET['idLL'] ?>'>
+        <img src="img/plus.svg">
+        <p>Ajouter une musique</p>
+    </a>
     <ul>
         <?php
         foreach($versions as $version)

@@ -686,3 +686,24 @@ footer p{
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.addButton {
+    background-color: #94B2F0;
+    height: 50px;
+    width: 19%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-right: 4%;
+    margin-bottom: auto;
+    margin-left: 10px;
+}
+
+.addButton img {
+    margin-left: 5%;
+}
+
+.addButton p {
+    margin-left: 5%;
+}

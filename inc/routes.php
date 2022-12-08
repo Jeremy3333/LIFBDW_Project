@@ -31,6 +31,10 @@ $routes = array(
         'Liste' => array(
                 'controleur' => 'controleurListe',
                 'vue' => 'vueListe',
-        )
+        ),
+        'AddList' => array(
+                'controleur' => 'controleurAddList',
+                'vue' => 'vueAddList',
+        ),
     )
 ?>

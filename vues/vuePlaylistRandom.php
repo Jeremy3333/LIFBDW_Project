@@ -32,7 +32,12 @@
         echo "<p>La playlist dure : ".gmdate("H:i:s",$info['duree'])."</p>";
 
         if ($info['genre'] != 'default')
-           echo "<p>La playlist comorte : ".pourcentageGenre($info['idLL'],$info['genre'])."% du genre ".nomGenre($info['genre'])."</p>";
+        {
+            echo "<p>La playlist comorte : ".pourcentageGenre($info['idLL'],$info['genre'])."% du genre ".nomGenre($info['genre'])."</p>";
+            if(pourcentageGenre($info['idLL'],$info['genre'])>50)
+                echo "<p>Il n'y a pas assez de chanson du genre priviligié dans la base de donnée par rapport à la durée de la playlist</p>";
+
+        }
     }
     ?>
     </div>

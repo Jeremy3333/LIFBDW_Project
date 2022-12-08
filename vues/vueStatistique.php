@@ -30,7 +30,29 @@
         </div>
         <div class="Stat-left-bottom">
             <div class="box-wide">
-                <div class="box-header"></div>
+                <div class="box-header"><p>playlist par date de création</p></div>
+                <div class="box-content">
+                    <div class="half">
+                        <ul>
+                            <?php
+                            foreach($PlaylistRecente as $playlist)
+                            {
+                                echo "<li><p>".$playlist['Titre']."</p> <p>".$playlist['DateCréation']."</p></li>";
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                    <div class="half">
+                        <ul>
+                            <?php
+                            foreach($PlaylistAncienne as $playlist)
+                            {
+                                echo "<li><p>".$playlist['Titre']."</p> <p>".$playlist['DateCréation']."</p></li>";
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -489,6 +489,34 @@ function getVersionLL($idLL)
 
     return $versionsLL;
 }
+function getPlaylistRecente()
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT * FROM Listes_de_lecture ORDER BY DateCréation DESC LIMIT 5";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $listesDeLecture = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_close($bdd);
+
+    return $listesDeLecture;
+}
+function getPlaylistAncienne()
+{
+    $username = "p2103485";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT * FROM Listes_de_lecture ORDER BY DateCréation ASC LIMIT 5";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $listesDeLecture = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_close($bdd);
+
+    return $listesDeLecture;
+}
 function deleteInclut($idV,$idLL)
 {
     $username = "p2103485";

@@ -3,8 +3,8 @@
 function getBdd()
 {
     $servername = "localhost";
-    $username = "p2103485";
-    $password = "Salon17Spree";
+    $username = "p2102785";
+    $password = "Supper10Jurist";
     $conn = new mysqli($servername, $username, $password);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -13,7 +13,7 @@ function getBdd()
 }
 function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     if(!(isset($titre) && is_string($titre) && isset($date) && is_string($date) && isset($durée) && is_string($durée) && isset($nomFichier) && is_string($nomFichier) && isset($groupe) && is_integer($groupe) && isset($genre) && is_integer($genre)))
     {
@@ -244,7 +244,7 @@ function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
 }
 function getGroupes()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM GroupeMusique";
@@ -256,7 +256,7 @@ function getGroupes()
 }
 function getChansons()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_chanson = "SELECT * FROM Chansons";
@@ -268,7 +268,7 @@ function getChansons()
 }
 function getVersion($idC, $idV)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_version = "SELECT Titre, Nom, Durée, Fichier FROM (VersionsMusique NATURAL JOIN Chansons) NATURAL JOIN GroupeMusique WHERE idC = '$idC' AND idV = '$idV'";
@@ -290,7 +290,7 @@ function getRowData($bdd)
 }
 function getGenres()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Genres";
@@ -302,7 +302,7 @@ function getGenres()
 }
 function getTopChansons()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT ch.Titre, c.Valeur FROM Chansons ch NATURAL JOIN Comporte c WHERE c.Libellé = 'playcount' ORDER BY c.Valeur DESC LIMIT 20";
@@ -314,7 +314,7 @@ function getTopChansons()
 }
 function getChansonsRecente()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT Titre, DateCréation FROM Chansons ORDER BY DateCréation DESC LIMIT 5";
@@ -326,7 +326,7 @@ function getChansonsRecente()
 }
 function getChansonsPassée()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT ch.Titre, c.Valeur FROM Chansons ch NATURAL JOIN Comporte c WHERE c.Libellé = 'skipcount' ORDER BY c.Valeur DESC LIMIT 5";
@@ -338,7 +338,7 @@ function getChansonsPassée()
 }
 function getListesDeLecture()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Listes_de_lecture";
@@ -350,22 +350,22 @@ function getListesDeLecture()
 }
 function nomGenre($genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
     $req_groupe = "SELECT Genre FROM Genres WHERE idG = '$genre'";
     $result = mysqli_query($bdd, $req_groupe);
 
-    $genre = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     mysqli_close($bdd);
-
-    return $genre[0]['Genre'];
+    
+    return $genres[0]['Genre'];
 }
 function pourcentageGenre($idLL,$genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -384,7 +384,7 @@ function pourcentageGenre($idLL,$genre)
 }
 function postListesdeLecture($titre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -401,7 +401,7 @@ function postListesdeLecture($titre)
 }
 function getVersionByGenre($genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -416,7 +416,7 @@ function getVersionByGenre($genre)
 }
 function getVersionByGenreAndPref($genre,$pref,$nbe)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -431,7 +431,7 @@ function getVersionByGenreAndPref($genre,$pref,$nbe)
 }
 function postInclut($idLL,$idV,$idC)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -447,7 +447,7 @@ function postInclut($idLL,$idV,$idC)
 }
 function getVersionAll()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -462,7 +462,7 @@ function getVersionAll()
 }
 function getVersionAllByPref($pref,$nbe)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -477,11 +477,11 @@ function getVersionAllByPref($pref,$nbe)
 }
 function getVersionLL($idLL)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $req_groupe = "SELECT v.* FROM Inclut NATURAL JOIN VersionsMusique v WHERE idLL = '$idLL'";
+    $req_groupe = "SELECT v.* FROM VersionsMusique v NATURAL JOIN Inclut i WHERE i.idLL = '$idLL'";
     $result = mysqli_query($bdd, $req_groupe);
 
     $versionsLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -491,7 +491,7 @@ function getVersionLL($idLL)
 }
 function getPlaylistRecente()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -505,7 +505,7 @@ function getPlaylistRecente()
 }
 function getPlaylistAncienne()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -517,13 +517,13 @@ function getPlaylistAncienne()
 
     return $listesDeLecture;
 }
-function deleteInclut($idV,$idLL)
+function deleteInclut($idC,$idLL)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $sql = "DELETE * FROM Inclut WHERE idLL = '$idLL' AND idV = '$idV'";
+    $sql = "DELETE FROM Inclut WHERE idC = '$idC' AND idLL = '$idLL'";
     mysqli_query($bdd, $sql);
 
     mysqli_close($bdd);

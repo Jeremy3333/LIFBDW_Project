@@ -366,7 +366,7 @@ footer p{
 .Musiques{
     height: 100%;
     width: 85%;
-    overflow: scroll;
+    overflow: auto;
 }
 .Musiques h1 {
     color: #995700;
@@ -588,7 +588,7 @@ footer p{
 .Liste{
     height: 100%;
     width: 85%;
-    overflow: scroll;
+    overflow: auto;
 }
 .Liste h1 {
     color: #995700;
@@ -640,4 +640,12 @@ footer p{
 
 .trash {
     margin-right: 1%;
+}
+
+.info {
+    border: #072463 solid 1px;
+    text-align: center;
+    margin-bottom: 10px; 
+    margin-left: 10px;
+    margin-right: 10px;
 }

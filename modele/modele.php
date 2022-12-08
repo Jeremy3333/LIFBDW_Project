@@ -357,11 +357,11 @@ function nomGenre($genre)
     $req_groupe = "SELECT Genre FROM Genres WHERE idG = '$genre'";
     $result = mysqli_query($bdd, $req_groupe);
 
-    $genre = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     mysqli_close($bdd);
-
-    return $genre[0]['Genre'];
+    
+    return $genres[0]['Genre'];
 }
 function pourcentageGenre($idLL,$genre)
 {
@@ -481,7 +481,7 @@ function getVersionLL($idLL)
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $req_groupe = "SELECT v.* FROM Inclut NATURAL JOIN VersionsMusique v WHERE idLL = '$idLL'";
+    $req_groupe = "SELECT v.* FROM VersionsMusique v NATURAL JOIN Inclut i WHERE i.idLL = '$idLL'";
     $result = mysqli_query($bdd, $req_groupe);
 
     $versionsLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -495,7 +495,7 @@ function deleteInclut($idC,$idLL)
     $bdd = getBdd();
     $bdd -> select_db($username);
 
-    $sql = "DELETE * FROM Inclut WHERE idLL = '$idLL' AND idC = '$idC'";
+    $sql = "DELETE FROM Inclut WHERE idC = '$idC' AND idLL = '$idLL'";
     mysqli_query($bdd, $sql);
 
     mysqli_close($bdd);

@@ -1,27 +1,31 @@
 <div class="Liste">
     <?php 
 
+    if (isset($_GET['getdelete']))
+    {
+        deleteInclut($_GET['getdelete'],$_GET['idLL']);
+    }
+
     $ldl = getInfo($_GET['idLL']);
 
     $idLL = $ldl[0]['idLL'];
     $titre = $ldl[0]['Titre'];
     $versions = getVersionLL($idLL);
     $addduree = 0;
-
-    if (isset($_GET['getdelete']))
-    {
-        deleteInclut($_GET['getdelete'],$idLL);
-
-    }
     
     echo "<h1>".$titre."</h1></br>";
+
+    $i = 0;
 
     foreach($versions as $version)
     {
         $addduree += timeToSeconds($version['Durée']);
+        $i++;
     }
 
-    echo "<p>Durée : ".gmdate("H:i:s",$addduree)."</p>";
+    
+
+    echo "<p>Durée : ".gmdate("H:i:s",$addduree)."  Nombre de musiques : ".$i."</p>";
 
     // if ($genre!='default')
     //     echo "<p>".pourcentageGenre($idLL,$genre)."% du genre ".nomGenre($genre)."</p>";

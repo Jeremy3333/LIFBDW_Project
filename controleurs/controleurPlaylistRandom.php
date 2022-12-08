@@ -3,11 +3,13 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 {
     $addduree = 0;
     $i = 1;
+    $j = 0;
     $idLL = postListesdeLecture($titre);
     $timepl = timeToSeconds($duree);
 
     while ($timepl-60 >= $addduree or $timepl+60 <= $addduree)
     {
+        $j++;
         if ($genre=='default')
             $i=4;
         
@@ -41,7 +43,6 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
         $nbVersion = count($versions);
         $nb = rand(0,$nbVersion-1);
         postInclut($idLL,$versions[$nb]['idV'],$versions[$nb]['idC']);
-
         $addduree += timeToSeconds($versions[$nb]['Durée']);
 
         if($timepl+60 < $addduree)
@@ -50,16 +51,18 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
             $nbVersion = count($versions);
             $nbs = rand(0,$nbVersion-1);
             deleteInclut($versions[$nbs]['idC'],$idLL);
-            $addduree -= timeToSeconds($versions[$nbs]['Durée']);
+            $addduree = $addduree - timeToSeconds($versions[$nbs]['Durée']);
+            $j--;
         }
     }
 
-    echo "<p>".$titre."</p>";
+    $info = array(
+        'duree' => $addduree,
+        'idLL' => $idLL,
+        'genre' => $genre,
+    );
 
-    echo "<p>La playlist dure : ".gmdate("H:i:s",$addduree)."</p>";
-
-    if ($genre!='default')
-        echo "<p>La playlist comorte : ".pourcentageGenre($idLL,$genre)."% du genre ".nomGenre($genre)."</p>";
+    return $info;
 }
 
 
@@ -69,9 +72,8 @@ if(isset($_POST['Créer']))
     $duree = $_POST['duree'];
     $genre = $_POST['genre'];
     $pref = $_POST['preference'];
-    makeRandomPlaylist($titre, $duree, $genre, $pref);
+    $info = makeRandomPlaylist($titre, $duree, $genre, $pref);
 }
 
 $Genres = getGenres();
-
 ?>

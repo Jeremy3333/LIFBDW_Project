@@ -1,5 +1,6 @@
+< ! -- REJANY Alexandre p2102785
+       BOUILLY Jérémy p2103485 -- >
 <?php
-    //require('inc/includes.php');
     require('inc/routes.php');
     require('modele/modele.php');
 ?>

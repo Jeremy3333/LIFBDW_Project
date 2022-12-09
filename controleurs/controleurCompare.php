@@ -47,7 +47,7 @@
 
         $score /= 10;
 
-        header("Location: https://bdw.univ-lyon1.fr/p2102785/Rhyve/index.php?action=Liste&idLL=".$_GET['idLL']."&compare=".round($score,2));
+        header("Location: https://bdw.univ-lyon1.fr/p2103485/Rhyve/index.php?action=Liste&idLL=".$_GET['idLL']."&compare=".round($score,2));
 
     }
 ?>

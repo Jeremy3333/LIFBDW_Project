@@ -41,9 +41,9 @@
             $score += $addduree2 / $addduree;
         }
 
-        $score += 4 * ($titres / count($versions));
+        $score += 2 * ($titres / count($versions));
 
-        $score += 4 * (getSimilarGenre($_GET['idLL'],$_GET['idLL2']));
+        $score += 6 * (getSimilarGenre($_GET['idLL'],$_GET['idLL2']));
 
         $score /= 10;
 

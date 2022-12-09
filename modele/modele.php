@@ -649,42 +649,43 @@ function getSimilarGenre($idLL,$idLL2)
     $genres = getAllGenreDistinct($idLL);
     $genres2 = getAllGenreDistinct($idLL2);
 
-    $add = 0;
-    $add2 = 0;
-
-    $allgenres = count(getAllGenre($idLL));
-    $allgenres2 = count(getAllGenre($idLL2));
-
-    $total = 0;
+    $total1 = 0;
+    $total2 = 0;
 
     foreach ($genres as $genre)
     {
-        $add2 += count(getSpeGenre($idLL2,$genre['idG']));
+        $spegenres = count(getSpeGenre($idLL,$genre['idG']));
+        $add2 = count(getSpeGenre($idLL2,$genre['idG']));
+
+        if ($add2 < $spegenres)
+        {
+            $total1 += $add2/$spegenres;
+        }
+        else
+        {
+            $total1 += $spegenres/$add2;
+        }
     }
 
-    if ($add2 < $allgenres)
-    {
-        $total += $add2/$allgenres;
-    }
-    else
-    {
-        $total += $allgenres/$add2;
-    }
+    $total1 /= count($genres);
 
     foreach ($genres2 as $genre2)
     {
-        $add += count(getSpeGenre($idLL,$genre2['idG']));
+        $spegenres2 = count(getSpeGenre($idLL2,$genre2['idG']));
+        $add = count(getSpeGenre($idLL,$genre2['idG']));
+
+        if ($add < $spegenres2)
+        {
+            $total2 += $add/$spegenres2;
+        }
+        else
+        {
+            $total2 += $spegenres2/$add;
+        }
     }
 
-    if ($add < $allgenres2)
-    {
-        $total += $add/$allgenres2;
-    }
-    else
-    {
-        $total += $allgenres2/$add;
-    }
+    $total2 /= count($genres2);
 
-    return $total/2;
+    return ($total1 + $total2) / 2;
 }
 ?>

@@ -10,7 +10,16 @@
             <?php
             foreach($playlists as $playlist)
             {
-                echo "<li><a href='index.php?action=Liste&idLL=".$playlist['idLL']."'><img src='img/LdL.svg' /><p>"." ".$playlist['Titre']."</p></a></li>";
+                $versions = getVersionLL($playlist['idLL']);
+
+                $addduree = 0;
+
+                foreach($versions as $version)
+                {
+                    $addduree += timeToSeconds($version['Durée']);
+                }
+                
+                echo "<li><a href='index.php?action=Liste&idLL=".$playlist['idLL']."'><img src='img/LdL.svg' /><p>"." ".$playlist['Titre']."</br>".count($versions)." Titre(s) ".gmdate("H:i:s",$addduree)."</p></a></li>";
             }
             ?>
         </ul>

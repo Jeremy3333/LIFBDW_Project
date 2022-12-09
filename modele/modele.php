@@ -3,8 +3,8 @@
 function getBdd()
 {
     $servername = "localhost";
-    $username = "p2103485";
-    $password = "Salon17Spree";
+    $username = "p2102785";
+    $password = "Supper10Jurist";
     $conn = new mysqli($servername, $username, $password);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -13,7 +13,7 @@ function getBdd()
 }
 function addVersionsMusique($titre, $date, $durée, $nomFichier, $groupe, $genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     if(!(isset($titre) && is_string($titre) && isset($date) && is_string($date) && isset($durée) && is_string($durée) && isset($nomFichier) && is_string($nomFichier) && isset($groupe) && is_integer($groupe) && isset($genre) && is_integer($genre)))
     {
@@ -244,7 +244,7 @@ function postComporte($idC, $idV, $Libellé, $Valeur, $bdd)
 }
 function getGroupes()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM GroupeMusique";
@@ -256,7 +256,7 @@ function getGroupes()
 }
 function getChansons()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_chanson = "SELECT * FROM Chansons";
@@ -268,7 +268,7 @@ function getChansons()
 }
 function getVersion($idC, $idV)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_version = "SELECT Titre, Nom, Durée, Fichier FROM (VersionsMusique NATURAL JOIN Chansons) NATURAL JOIN GroupeMusique WHERE idC = '$idC' AND idV = '$idV'";
@@ -290,7 +290,7 @@ function getRowData($bdd)
 }
 function getGenres()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Genres";
@@ -302,7 +302,7 @@ function getGenres()
 }
 function getTopChansons()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT ch.Titre, c.Valeur FROM Chansons ch NATURAL JOIN Comporte c WHERE c.Libellé = 'playcount' ORDER BY c.Valeur DESC LIMIT 20";
@@ -314,7 +314,7 @@ function getTopChansons()
 }
 function getChansonsRecente()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT Titre, DateCréation FROM Chansons ORDER BY DateCréation DESC LIMIT 5";
@@ -326,7 +326,7 @@ function getChansonsRecente()
 }
 function getChansonsPassée()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT ch.Titre, c.Valeur FROM Chansons ch NATURAL JOIN Comporte c WHERE c.Libellé = 'skipcount' ORDER BY c.Valeur DESC LIMIT 5";
@@ -338,7 +338,7 @@ function getChansonsPassée()
 }
 function getListesDeLecture()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
     $req_groupe = "SELECT * FROM Listes_de_lecture";
@@ -350,7 +350,7 @@ function getListesDeLecture()
 }
 function nomGenre($genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -365,7 +365,7 @@ function nomGenre($genre)
 }
 function pourcentageGenre($idLL,$genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -384,7 +384,7 @@ function pourcentageGenre($idLL,$genre)
 }
 function postListesdeLecture($titre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -401,7 +401,7 @@ function postListesdeLecture($titre)
 }
 function getVersionByGenre($genre)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -416,7 +416,7 @@ function getVersionByGenre($genre)
 }
 function getVersionByGenreAndPref($genre,$pref,$nbe)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -431,7 +431,7 @@ function getVersionByGenreAndPref($genre,$pref,$nbe)
 }
 function postInclut($idLL,$idV,$idC)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -447,7 +447,7 @@ function postInclut($idLL,$idV,$idC)
 }
 function getVersionAll()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -462,7 +462,7 @@ function getVersionAll()
 }
 function getVersionAllByPref($pref,$nbe)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -477,7 +477,7 @@ function getVersionAllByPref($pref,$nbe)
 }
 function getVersionLL($idLL)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -491,7 +491,7 @@ function getVersionLL($idLL)
 }
 function getPlaylistRecente()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -505,7 +505,7 @@ function getPlaylistRecente()
 }
 function getPlaylistAncienne()
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -519,7 +519,7 @@ function getPlaylistAncienne()
 }
 function deleteInclut($idC,$idLL)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -530,7 +530,7 @@ function deleteInclut($idC,$idLL)
 }
 function getInfo($idLL)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -545,7 +545,7 @@ function getInfo($idLL)
 }
 function getTitreChanson($idC)
 {
-    $username = "p2103485";
+    $username = "p2102785";
     $bdd = getBdd();
     $bdd -> select_db($username);
 
@@ -565,5 +565,126 @@ function timeToSeconds(string $time)
         return $arr[0] * 3600 + $arr[1] * 60 + $arr[2];
     }
     return $arr[0] * 60 + $arr[1];
+}
+function getGenre($idC)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT idG FROM Caractérise WHERE idC = '$idC'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $genres;
+}
+function getSpeGenre($idLL,$genre)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT * FROM Caractérise NATURAL JOIN Inclut WHERE idLL = '$idLL' AND idG = '$genre'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $genres;
+}
+function getAllGenre($idLL)
+{
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+
+    $req_groupe = "SELECT * FROM Caractérise NATURAL JOIN Inclut WHERE idLL = '$idLL'";
+    $result = mysqli_query($bdd, $req_groupe);
+
+    $genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $genres;
+}
+function getAllGenreDistinct($idLL)
+{
+
+    $username = "p2102785";
+    $bdd = getBdd();
+    $bdd -> select_db($username);
+    $sql = "SELECT DISTINCT idG FROM Inclut NATURAL JOIN Caractérise WHERE idLL='$idLL'";
+
+    $result = $bdd->query($sql);
+    $genresLL = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_close($bdd);
+
+    return $genresLL;
+}
+function countGenres($versions)
+{
+    $total = 0;
+
+    foreach($versions as $version)
+    {
+        $total += count(getGenres($version['idC']));
+    }
+
+    return $total;
+}
+function getSimilarTitre($idC,$idC2)
+{
+    if($idC==$idC2)
+        return 1;
+
+    return 0;
+}
+function getSimilarGenre($idLL,$idLL2)
+{
+    $genres = getAllGenreDistinct($idLL);
+    $genres2 = getAllGenreDistinct($idLL2);
+
+    $add = 0;
+    $add2 = 0;
+
+    $allgenres = count(getAllGenre($idLL));
+    $allgenres2 = count(getAllGenre($idLL2));
+
+    $total = 0;
+
+    foreach ($genres as $genre)
+    {
+        $add2 += count(getSpeGenre($idLL2,$genre['idG']));
+    }
+
+    if ($add2 < $allgenres)
+    {
+        $total += $add2/$allgenres;
+    }
+    else
+    {
+        $total += $allgenres/$add2;
+    }
+
+    foreach ($genres2 as $genre2)
+    {
+        $add += count(getSpeGenre($idLL,$genre2['idG']));
+    }
+
+    if ($add < $allgenres2)
+    {
+        $total += $add/$allgenres2;
+    }
+    else
+    {
+        $total += $allgenres2/$add;
+    }
+
+    return $total/2;
 }
 ?>

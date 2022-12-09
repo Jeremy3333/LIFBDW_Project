@@ -587,7 +587,6 @@ footer p{
     width: 100%;
     overflow: auto;
 }
-
 .musique {
     height: 100%;
     width: 85%;
@@ -680,7 +679,8 @@ footer p{
 }
 
 .info {
-    border: #072463 solid 1px;
+    border: #072463 solid 2px;
+    border-radius: 20px;
     text-align: center;
     margin-bottom: 10px;
     margin-left: 10px;

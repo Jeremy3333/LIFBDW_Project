@@ -3,13 +3,11 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 {
     $addduree = 0;
     $i = 1;
-    $j = 0;
     $idLL = postListesdeLecture($titre);
     $timepl = timeToSeconds($duree);
 
     while ($timepl-60 >= $addduree or $timepl+60 <= $addduree)
     {
-        $j++;
         if ($genre=='default')
             $i=4;
         
@@ -47,12 +45,11 @@ function makeRandomPlaylist($titre, $duree, $genre, $pref)
 
         if($timepl+60 < $addduree)
         {
-            $versions = getVersionLL($idLL);
-            $nbVersion = count($versions);
+            $versionsLL = getVersionLL($idLL);
+            $nbVersion = count($versionsLL);
             $nbs = rand(0,$nbVersion-1);
-            deleteInclut($versions[$nbs]['idC'],$idLL);
-            $addduree = $addduree - timeToSeconds($versions[$nbs]['Durée']);
-            $j--;
+            deleteInclut($versionsLL[$nbs]['idC'],$idLL);
+            $addduree = $addduree - timeToSeconds($versionsLL[$nbs]['Durée']);
         }
     }
 

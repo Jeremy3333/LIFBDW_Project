@@ -37,5 +37,11 @@
             echo "<li><a class='group' href='index.php?action=Musique&idC=".$version['idC']."'><img src='img/play.svg' /><p>".getTitreChanson($version['idC'])."</p></a><a class='trash' href='index.php?action=Liste&idLL=".$idLL."&getdelete=".$version['idC']."'><img src='img/Trash.svg' /></a></li>";
         }
         ?>
+        <div class="PlaylistHeader">
+            <?php echo "<a href='index.php?action=Compare&idLL=".$idLL."'>";?>
+            <img src="img/Compare.svg">
+            <p>Comparez 2 playlists</p>
+            </a>
+        </div>
     </ul>
 </div>
